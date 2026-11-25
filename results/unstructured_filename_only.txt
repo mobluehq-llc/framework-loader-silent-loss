@@ -1,0 +1,26 @@
+AG v16, ChatGPT R2 blocker 2: Unstructured filename-only call partition(filename=path) vs the explicit content_type call.
+Run 2026-11-25 on trench (Linux x86_64, conda env ~/ag_amend6/.cv: unstructured 0.27.38, unstructured_inference 1.6.18, pypdfium2 5.15.2, pikepdf 10.18.2, python-pptx 1.0.2, pdf2image 1.17.0, poppler+tesseract from conda-forge), OMP_NUM_THREADS=1, fixtures seeds 20261401-20261420 (fixtures3_fw + fixtures3_fw2), runner stage3/fw2_run_unfilename.py (AG_UN_MIME=0 filename-only; =1 explicit MIME). m0=filename-only, m1=explicit MIME.
+Harness note: a first launch raised on every PPTX and on P07/P11 PDFs (python-pptx and poppler missing in that env; ImportError / PDFInfoNotInstalledError for BOTH calls). Env fixed, same runner rerun; first output discarded.
+
+reference results/unstructured_m1_fw.json,results/unstructured_m1_fw2.json un_* records 520
+
+filename_only_vs_explicit_mime_same_env: records 520, same keys True, records differing in any scored field 0
+   per class (n raised lost-core-no-exception): un_pdf P04_rotated 20/0/20; un_pdf P11_truncated 20/20/0; un_pptx S04_notes 20/0/20; un_txt T03_latin1 20/0/1; un_txt T04_cp1252 20/0/3; un_txt T05_mixed_encoding 20/0/3
+
+reference results/fw2_main.json un_* records 520
+
+filename_only_trench_vs_original_wake: records 520, same keys True, records differing in any scored field 4
+   P07_image_only         un_pdf     4  differs in recall_by_kind
+   e.g. ('20261404', 'P07_image_only', 'un_pdf') {'recall_by_kind': ({'image': 0.051}, {'image': 0.0549})} None
+   e.g. ('20261408', 'P07_image_only', 'un_pdf') {'recall_by_kind': ({'image': 0.0714}, {'image': 0.0694})} None
+   e.g. ('20261410', 'P07_image_only', 'un_pdf') {'recall_by_kind': ({'image': 0.0587}, {'image': 0.0561})} None
+   per class (n raised lost-core-no-exception): un_pdf P04_rotated 20/0/20; un_pdf P11_truncated 20/20/0; un_pptx S04_notes 20/0/20; un_txt T03_latin1 20/0/1; un_txt T04_cp1252 20/0/3; un_txt T05_mixed_encoding 20/0/3
+
+explicit_mime_trench_vs_original_wake: records 520, same keys True, records differing in any scored field 4
+   P07_image_only         un_pdf     4  differs in recall_by_kind
+   e.g. ('20261404', 'P07_image_only', 'un_pdf') {'recall_by_kind': ({'image': 0.051}, {'image': 0.0549})} None
+   e.g. ('20261408', 'P07_image_only', 'un_pdf') {'recall_by_kind': ({'image': 0.0714}, {'image': 0.0694})} None
+   e.g. ('20261410', 'P07_image_only', 'un_pdf') {'recall_by_kind': ({'image': 0.0587}, {'image': 0.0561})} None
+   per class (n raised lost-core-no-exception): un_pdf P04_rotated 20/0/20; un_pdf P11_truncated 20/20/0; un_pptx S04_notes 20/0/20; un_txt T03_latin1 20/0/1; un_txt T04_cp1252 20/0/3; un_txt T05_mixed_encoding 20/0/3
+
+Reading: the filename-only call and the explicit-MIME call give identical scored outcomes on all 520 records (0 differ). Against the original wake run, both differ only in 4 OCR recall values on P07_image_only (an unreadable-content class, not core loss); raised and lost-core flags are identical on all 520.

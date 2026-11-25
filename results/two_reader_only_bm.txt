@@ -1,0 +1,18 @@
+AG v16, ChatGPT R2 blocker 1: the two-reader comparison ALONE on constructed both-miss PDFs (BM2 image span, BM3 outline span, BM4 outline only), seeds 20261401-20261420.
+Run 2026-11-25 on trench (Linux; env ~/ag_amend6/.cv, pymupdf 2.1, pypdfium2 5.15.2), runner stage3/two_reader_only_bm.py over the stored per-run file results/redteam_bm_all.json; per-file detail results/two_reader_only_bm.json.
+
+pymupdf 2.1 pypdfium2 ?
+files 60 seeds 20
+
+BM2_image_span files 20 pages 107 flagged-pages 0 both-empty-pages 0 pages-both-readers-incomplete 107
+  loader runs 180 | runs with an incomplete page 180 | of those, accepted by the two-reader comparison alone (no page of the file flagged) 180
+
+BM3_outline_span files 20 pages 118 flagged-pages 0 both-empty-pages 0 pages-both-readers-incomplete 118
+  loader runs 180 | runs with an incomplete page 180 | of those, accepted by the two-reader comparison alone (no page of the file flagged) 180
+
+BM4_outline_only files 20 pages 121 flagged-pages 0 both-empty-pages 121 pages-both-readers-incomplete 121
+  loader runs 180 | runs with an incomplete page 180 | of those, accepted by the two-reader comparison alone (no page of the file flagged) 180
+
+MIXED (BM2+BM3): accepted 360 of 360 runs with an incomplete page
+
+Reading: on mixed pages (BM2+BM3) both readers miss the same span, agree, and flag no page: 360 of 360 loader runs with an incomplete page are accepted by the comparison alone. On outline-only pages (BM4) both readers return nothing; the comparison alone does not flag them either (121 both-empty pages); the declaration 'unreadable' reported for those 180 runs comes from the ink-flag branch of the broader wrapper Wdual (results/redteam_bm_summary.txt), not from the comparison.

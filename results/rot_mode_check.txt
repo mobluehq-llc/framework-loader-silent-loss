@@ -1,0 +1,14 @@
+AG v17, ChatGPT R3 blocker: failure mode on P4c rotated pages (fixtures3_p4c, seeds 20261401-20261420).
+Run 2026-11-25 on trench, env ~/ag_amend6/.cv (unstructured 0.27.38, markitdown 0.1.9), OMP_NUM_THREADS=1, runner stage3/rot_mode_check.py; raw per-page rows in rot_mode_check.json.
+exact = known tokens found as exact tokens; reversed = known words found with characters reversed; cr = page character-multiset recall in the whole output.
+loader rot pages tokens exact_found reversed_found pages_with_neither
+mk_pdf 0 34 3770 3770 0 0
+mk_pdf 90 71 7789 7789 0 0
+mk_pdf 180 30 3612 0 3612 0
+mk_pdf 270 35 3658 0 2138 16
+un_pdf 0 34 3770 3770 0 0
+un_pdf 90 71 7789 0 0 71
+un_pdf 180 30 3612 3612 0 0
+un_pdf 270 35 3658 0 0 35
+Every zero-exact page has cr = 1.0 (no empty page). un_pdf 90/270: characters separated by spaces/newlines. mk_pdf 270 "neither" pages: tokens split/joined into other strings.
+seed 20261401: mk_pdf 180-degree pages 122+86+92 = 300 tokens, all reversed, 0 exact.

@@ -1,10 +1,10 @@
 # Default document loaders: code and fixtures bundle
 
 Accompanies the preprint "Default document loaders in AI frameworks can lose content without an error: a short measurement note"
-(Adam Faust, MOBLUEHQ, Inc.). Version 1.0 (note v9). DOI: [10.5281/zenodo.24522148](https://doi.org/10.5281/zenodo.24522148). Verify: `make verify` (or `python3 -I verify.py`) regenerates every number and table from the stored results and checks them against `paper_source/`.
+(Adam Faust, MOBLUEHQ, Inc.). Version 1.1 (note v18). DOI of v1.0: [10.5281/zenodo.24522148](https://doi.org/10.5281/zenodo.24522148); the DOI of v1.1 is on the Zenodo record and the GitHub release. Verify: `make verify` (or `python3 -I verify.py`) regenerates every number and table from the stored results and checks them against `paper_source/`.
 
 ## Layout
-- `paper_source/` LaTeX source of the note (v9) with the generated tables; `verify.py` compares the regenerated tables to these.
+- `paper_source/` LaTeX source of the note (v17 text; v18 differs only in the availability statement) with the generated tables; `verify.py` compares the regenerated tables to these.
 - `stage2/gen2.py` fixture generator: `python stage2/gen2.py --seed N --out DIR` (one file per class, ground truth in `<file>.json`). Seeds 20261401-20261420 were used for the framework rows; the same seed reproduces the same words (checked for P04, D04, T03, H04 of seed 20261401, and T03 byte for byte). `gen_fixtures.py` is an earlier generator (different class file names).
 - `fixtures_sample_seed_20261401/` one complete seed of constructed files with manifests (its P04 file is the withdrawn defective one); `fixtures_p4fix_sample/` the corrected P04 file for the same seed.
 - `stage3/` the harness: `loaders3.py`, `run3.py` (metric: token multiset recall per kind), `conserve2.py`, `fw_run.py` (LangChain, LlamaIndex, Docling defaults), `fw2_run.py` (Haystack, Unstructured, MarkItDown defaults), `fw_real.py` (real files), and the post-hoc checks `p4_clip_check.py`, `docling_md_check.py`, `status_checks.py`. `stage2/run2.py` runs the library calls.
@@ -22,3 +22,7 @@ Accompanies the preprint "Default document loaders in AI frameworks can lose con
 
 ## Scope and caveats
 Constructed files, pinned versions, default arguments only. The first P4 (rotated pages) test file was defective (text outside the page box on pages rotated 90 or 270 degrees; `results/p4_clip_check.txt`) and every number from it is withdrawn. `stage2/gen2_p4fix.py` writes the corrected file (one changed constant); the registered rerun is `stage3/p4fix_run.py`, results `results/p4fix*.txt|json`: no loss for LangChain, LlamaIndex, Haystack, Docling, PyMuPDF; Unstructured 0.39 and MarkItDown 0.61 (pdfminer default layout analysis skips vertical text). Untested: Haystack `PPTXToDocument` and `MarkdownToDocument`, text files in LangChain and Docling, PPTX in LangChain, Unstructured OCR and hi_res strategies.
+
+## Changes in v1.1
+- `paper_source/` brought to note v17 (no number or table changed; `verify.py` passes).
+- Added the two-reader-alone check on the both-miss PDFs (`stage3/two_reader_only_bm.py`, `results/two_reader_only_bm.*`), the Unstructured filename-only rerun (`stage3/fw2_run_unfilename.py`, `stage3/cmp_un_calls.py`, `results/unstructured_*`), and the rotated-page failure-mode check (`stage3/rot_mode_check.py`, `results/rot_mode_check.*`).
