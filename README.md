@@ -1,7 +1,7 @@
 # Default document loaders: code and fixtures bundle
 
 Accompanies the preprint "Default document loaders in AI frameworks can lose content without an error: a short measurement note"
-(Adam Faust, MOBLUEHQ, Inc.). Version 1.0 (note v9). Verify: `make verify` (or `python3 -I verify.py`) regenerates every number and table from the stored results and checks them against `paper_source/`.
+(Adam Faust, MOBLUEHQ, Inc.). Version 1.0 (note v9). DOI: [10.5281/zenodo.24522148](https://doi.org/10.5281/zenodo.24522148). Verify: `make verify` (or `python3 -I verify.py`) regenerates every number and table from the stored results and checks them against `paper_source/`.
 
 ## Layout
 - `paper_source/` LaTeX source of the note (v9) with the generated tables; `verify.py` compares the regenerated tables to these.

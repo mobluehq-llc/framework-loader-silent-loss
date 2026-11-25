@@ -9,5 +9,6 @@ authors:
     given-names: Adam
     affiliation: "MOBLUEHQ, Inc."
 license: MIT
+doi: "10.5281/zenodo.24522148"
 repository-code: "https://github.com/mobluehq-llc/framework-loader-silent-loss"
 abstract: "Constructed files with known words, the harness, pinned requirements, stored results and a script that regenerates every number and table of the note (Faust 2026) on default loader calls in LangChain, LlamaIndex, Docling, Haystack, Unstructured and MarkItDown."
