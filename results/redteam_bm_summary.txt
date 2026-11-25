@@ -1,0 +1,53 @@
+runs 2520 seeds 20
+
+== W : per class: accepted-but-incomplete pages (silent) / runs returned; refusals; declared_unreadable pages; declared_unreadable on truth-empty pages
+  BM1_ttf_span           runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM2_image_span         runs  180  incomplete pages(bare)   963 | silent   963 (runs 180) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM3_outline_span       runs  180  incomplete pages(bare)  1062 | silent  1062 (runs 180) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM4_outline_only       runs  180  incomplete pages(bare)  1089 | silent  1089 (runs 180) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM5_image_only         runs  180  incomplete pages(bare)  1035 | silent     0 (runs   0) refused    0 declUnread  1035 declUnread-on-empty    0 faults 0
+  BM6_blank              runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM7_ttf_no_tounicode   runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P01_text               runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P03_blank_interleaved  runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P04_rotated            runs  180  incomplete pages(bare)   625 | silent     0 (runs   0) refused  115 declUnread     0 declUnread-on-empty    0 faults 0
+  P06_hidden_layer       runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P07_image_only         runs  180  incomplete pages(bare)  1278 | silent     0 (runs   0) refused    0 declUnread  1278 declUnread-on-empty    0 faults 0
+  P09_form_only          runs  180  incomplete pages(bare)   732 | silent     0 (runs   0) refused  120 declUnread     0 declUnread-on-empty    0 faults 0
+  P11_truncated          runs   40  incomplete pages(bare)   182 | silent     0 (runs   0) refused   40 declUnread     0 declUnread-on-empty    0 faults 0
+
+== W2 : per class: accepted-but-incomplete pages (silent) / runs returned; refusals; declared_unreadable pages; declared_unreadable on truth-empty pages
+  BM1_ttf_span           runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread  1134 declUnread-on-empty    0 faults 0
+  BM2_image_span         runs  180  incomplete pages(bare)   963 | silent     0 (runs   0) refused    0 declUnread   963 declUnread-on-empty    0 faults 0
+  BM3_outline_span       runs  180  incomplete pages(bare)  1062 | silent     0 (runs   0) refused    0 declUnread  1062 declUnread-on-empty    0 faults 0
+  BM4_outline_only       runs  180  incomplete pages(bare)  1089 | silent     0 (runs   0) refused    0 declUnread  1089 declUnread-on-empty    0 faults 0
+  BM5_image_only         runs  180  incomplete pages(bare)  1035 | silent     0 (runs   0) refused    0 declUnread  1035 declUnread-on-empty    0 faults 0
+  BM6_blank              runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM7_ttf_no_tounicode   runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread  1071 declUnread-on-empty    0 faults 0
+  P01_text               runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P03_blank_interleaved  runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P04_rotated            runs  180  incomplete pages(bare)   625 | silent     0 (runs   0) refused  115 declUnread     0 declUnread-on-empty    0 faults 0
+  P06_hidden_layer       runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread  1350 declUnread-on-empty    0 faults 0
+  P07_image_only         runs  180  incomplete pages(bare)  1278 | silent     0 (runs   0) refused    0 declUnread  1278 declUnread-on-empty    0 faults 0
+  P09_form_only          runs  180  incomplete pages(bare)   732 | silent     0 (runs   0) refused  120 declUnread   366 declUnread-on-empty    0 faults 0
+  P11_truncated          runs   40  incomplete pages(bare)   182 | silent     0 (runs   0) refused   40 declUnread     0 declUnread-on-empty    0 faults 0
+
+== Wdual : per class: accepted-but-incomplete pages (silent) / runs returned; refusals; declared_unreadable pages; declared_unreadable on truth-empty pages
+  BM1_ttf_span           runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM2_image_span         runs  180  incomplete pages(bare)   963 | silent   963 (runs 180) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM3_outline_span       runs  180  incomplete pages(bare)  1062 | silent  1062 (runs 180) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM4_outline_only       runs  180  incomplete pages(bare)  1089 | silent     0 (runs   0) refused    0 declUnread  1089 declUnread-on-empty    0 faults 0
+  BM5_image_only         runs  180  incomplete pages(bare)  1035 | silent     0 (runs   0) refused    0 declUnread  1035 declUnread-on-empty    0 faults 0
+  BM6_blank              runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  BM7_ttf_no_tounicode   runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P01_text               runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P03_blank_interleaved  runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P04_rotated            runs  180  incomplete pages(bare)   625 | silent     0 (runs   0) refused  115 declUnread     0 declUnread-on-empty    0 faults 0
+  P06_hidden_layer       runs  180  incomplete pages(bare)     0 | silent     0 (runs   0) refused    0 declUnread     0 declUnread-on-empty    0 faults 0
+  P07_image_only         runs  180  incomplete pages(bare)  1278 | silent     0 (runs   0) refused    0 declUnread  1278 declUnread-on-empty    0 faults 0
+  P09_form_only          runs  180  incomplete pages(bare)   732 | silent     0 (runs   0) refused  120 declUnread     0 declUnread-on-empty    0 faults 0
+  P11_truncated          runs   40  incomplete pages(bare)   182 | silent     0 (runs   0) refused   40 declUnread     0 declUnread-on-empty    0 faults 0
+
+loader raised by class: {'P11_truncated': 140}
+Wdual refusal reasons: [(('P09_form_only', 'page recall < 1'), 120), (('P04_rotated', 'page recall < 1'), 115), (('P11_truncated', 'file truncated'), 40)]
+W2 silent by loader on BM1-5: {}

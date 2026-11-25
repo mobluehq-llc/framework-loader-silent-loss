@@ -1,0 +1,76 @@
+cells 125 not measured 0 []
+CHECK positive controls (some loader perfect): {'P01_text_10p': True, 'D01_body_only': True, 'T01_utf8': True} | negative control stub flagged silent: [True]
+
+BARE LOADERS: per fixture x loader  S=silent loss, L=loud (loss or not), .=no loss
+                            docx docx pypd pypd pdfm pdfm pdfp pymu pypd txt_ txt_ txt_ txt_ txt_
+D01_body_only               .    .    -    -    -    -    -    -    -    -    -    -    -    -   
+D02_tables                  S    .    -    -    -    -    -    -    -    -    -    -    -    -   
+D03_header_footer           S    .    -    -    -    -    -    -    -    -    -    -    -    -   
+D04_nested_table            S    .    -    -    -    -    -    -    -    -    -    -    -    -   
+P01_text_10p                -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+P02_text_200p               -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+P03_blank_interleaved_12p   -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+P04_rotated_10p             -    -    .    .    S    S    S    S    .    -    -    -    -    -   
+P05_encrypted_owner_8p      -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+P06_hidden_layer_8p         -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+P07_image_only_8p           -    -    S    S    S    S    S    S    S    -    -    -    -    -   
+P08_mixed_12p               -    -    S    S    S    S    S    S    S    -    -    -    -    -   
+P09_form_only_6p            -    -    S    S    S    S    S    .    S    -    -    -    -    -   
+P10_encrypted_user_6p       -    -    L    L    L    L    L    L    L    -    -    -    -    -   
+P11_truncated_10p           -    -    L    L    L    L    L    S    L    -    -    -    -    -   
+P12_single_blank_1p         -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+P13_single_text_1p          -    -    .    .    .    .    .    .    .    -    -    -    -    -   
+T01_utf8                    -    -    -    -    -    -    -    -    -    .    .    .    .    .   
+T02_utf16_bom               -    -    -    -    -    -    -    -    -    L    S    S    S    .   
+T03_latin1                  -    -    -    -    -    -    -    -    -    L    S    S    .    .   
+T04_cp1252                  -    -    -    -    -    -    -    -    -    L    S    S    S    .   
+T05_mixed_encoding          -    -    -    -    -    -    -    -    -    L    S    S    .    .   
+
+B1 families with silent loss (any kind): {'python-docx': ['D02_tables', 'D03_header_footer', 'D04_nested_table'], 'pdfminer': ['P04_rotated_10p', 'P07_image_only_8p', 'P08_mixed_12p', 'P09_form_only_6p'], 'pdfplumber': ['P04_rotated_10p', 'P07_image_only_8p', 'P08_mixed_12p', 'P09_form_only_6p'], 'pymupdf': ['P04_rotated_10p', 'P07_image_only_8p', 'P08_mixed_12p', 'P11_truncated_10p'], 'pypdf': ['P07_image_only_8p', 'P08_mixed_12p', 'P09_form_only_6p'], 'pdfium': ['P07_image_only_8p', 'P08_mixed_12p', 'P09_form_only_6p'], 'stdlib': ['T02_utf16_bom', 'T03_latin1', 'T04_cp1252', 'T05_mixed_encoding']}
+B1 families with silent loss on TEXT-LAYER content or page count/numbering: {'python-docx': ['D02_tables', 'D03_header_footer', 'D04_nested_table'], 'pdfminer': ['P04_rotated_10p'], 'pdfplumber': ['P04_rotated_10p'], 'pymupdf': ['P04_rotated_10p', 'P11_truncated_10p'], 'stdlib': ['T02_utf16_bom', 'T03_latin1', 'T04_cp1252', 'T05_mixed_encoding']}
+silent/loud/none/notmeasured: 39 17 69 0
+
+WRAPPED (R=remedy, M1/M2 mutants): silent_drops, false_alarms(controls), wrapper-loud cells, uncovered_partial
+R silent_drop_units 15 | cells with a silent drop 3 | wrapper-refused cells 36 | false alarms on controls [] 0 | false alarms all 5 | uncovered partial units 5 | accountant faults 0 []
+M1 silent_drop_units 148 | cells with a silent drop 30 | wrapper-refused cells 17 | false alarms on controls [] 0 | false alarms all 0 | uncovered partial units 13 | accountant faults 0 []
+M2 silent_drop_units 144 | cells with a silent drop 29 | wrapper-refused cells 18 | false alarms on controls [] 0 | false alarms all 0 | uncovered partial units 5 | accountant faults 0 []
+
+SILENT-LOSS cells with recall detail (word_recall, charbag_recall, page_count_error, misnumbered):
+  D02_tables                 docx_paragraphs  w=0.62 cb=0.62 pce=0 mis=0 kinds={'body': '60/60', 'table': '0/36'}
+  D03_header_footer          docx_paragraphs  w=0.83 cb=0.83 pce=0 mis=0 kinds={'body': '100/100', 'header': '0/10', 'footer': '0/10'}
+  D04_nested_table           docx_paragraphs  w=0.80 cb=0.79 pce=0 mis=0 kinds={'body': '40/40', 'table': '0/10'}
+  P04_rotated_10p            pdfminer_pages   w=0.50 cb=1.00 pce=0 mis=0 kinds={'text': '500/1000'}
+  P04_rotated_10p            pdfminer_high    w=0.50 cb=1.00 pce=0 mis=0 kinds={'text': '500/1000'}
+  P04_rotated_10p            pdfplumber       w=0.50 cb=1.00 pce=0 mis=0 kinds={'text': '500/1000'}
+  P04_rotated_10p            pymupdf          w=0.56 cb=0.56 pce=0 mis=0 kinds={'text': '560/1000'}
+  P07_image_only_8p          pypdf            w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P07_image_only_8p          pypdf2           w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P07_image_only_8p          pdfminer_pages   w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P07_image_only_8p          pdfminer_high    w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P07_image_only_8p          pdfplumber       w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P07_image_only_8p          pymupdf          w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P07_image_only_8p          pypdfium2        w=0.00 cb=0.00 pce=0 mis=0 kinds={'image': '0/640'}
+  P08_mixed_12p              pypdf            w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P08_mixed_12p              pypdf2           w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P08_mixed_12p              pdfminer_pages   w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P08_mixed_12p              pdfminer_high    w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P08_mixed_12p              pdfplumber       w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P08_mixed_12p              pymupdf          w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P08_mixed_12p              pypdfium2        w=0.50 cb=0.50 pce=0 mis=0 kinds={'text': '320/320', 'image': '0/320'}
+  P09_form_only_6p           pypdf            w=0.00 cb=0.00 pce=0 mis=0 kinds={'form': '0/96'}
+  P09_form_only_6p           pypdf2           w=0.00 cb=0.00 pce=0 mis=0 kinds={'form': '0/96'}
+  P09_form_only_6p           pdfminer_pages   w=0.00 cb=0.00 pce=0 mis=0 kinds={'form': '0/96'}
+  P09_form_only_6p           pdfminer_high    w=0.00 cb=0.00 pce=0 mis=0 kinds={'form': '0/96'}
+  P09_form_only_6p           pdfplumber       w=0.00 cb=0.00 pce=0 mis=0 kinds={'form': '0/96'}
+  P09_form_only_6p           pypdfium2        w=0.00 cb=0.00 pce=0 mis=0 kinds={'form': '0/96'}
+  P11_truncated_10p          pymupdf          w=0.55 cb=0.55 pce=0 mis=0 kinds={'text': '664/1200'}
+  T02_utf16_bom              txt_utf8_ignore  w=0.00 cb=1.00 pce=0 mis=0 kinds={'text': '0/200'}
+  T02_utf16_bom              txt_utf8_replace w=0.00 cb=1.00 pce=0 mis=0 kinds={'text': '0/200'}
+  T02_utf16_bom              txt_latin1       w=0.00 cb=1.00 pce=0 mis=0 kinds={'text': '0/200'}
+  T03_latin1                 txt_utf8_ignore  w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}
+  T03_latin1                 txt_utf8_replace w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}
+  T04_cp1252                 txt_utf8_ignore  w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}
+  T04_cp1252                 txt_utf8_replace w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}
+  T04_cp1252                 txt_latin1       w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}
+  T05_mixed_encoding         txt_utf8_ignore  w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}
+  T05_mixed_encoding         txt_utf8_replace w=0.75 cb=0.97 pce=0 mis=0 kinds={'text': '150/200'}

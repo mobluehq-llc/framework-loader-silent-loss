@@ -1,0 +1,6 @@
+D03_header_footer.docx   markdown  seeds 5 pooled core recall 0.83 (537 of 647)
+D03_header_footer.docx   text      seeds 5 pooled core recall 0.83 (537 of 647)
+P04_rotated.pdf          markdown  seeds 5 pooled core recall 0.32 (1391 of 4356)
+P04_rotated.pdf          text      seeds 5 pooled core recall 0.32 (1391 of 4356)
+S04_notes.pptx           markdown  seeds 5 pooled core recall 0.57 (768 of 1350)
+S04_notes.pptx           text      seeds 5 pooled core recall 0.57 (768 of 1350)

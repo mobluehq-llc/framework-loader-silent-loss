@@ -1,0 +1,107 @@
+\documentclass[aps,pre,twocolumn,superscriptaddress,nofootinbib,10pt]{revtex4-2}
+\usepackage{graphicx}\usepackage{float}
+\usepackage{amsmath,amssymb}
+\usepackage{url}\usepackage{xurl}
+\input{numbers.tex}
+\input{mode.tex}
+\ifdraftmode\AddToHook{shipout/foreground}{\put(0.5\paperwidth,-0.42in){\makebox[0pt]{\small\sffamily DRAFT, not for distribution}}}\fi
+
+\addtolength{\textheight}{12pt}\addtolength{\topmargin}{-6pt}
+\begin{document}
+
+\title{Default document loaders in AI frameworks can omit expected text without raising an exception:\\ a short measurement note}
+
+\author{Adam Faust}
+\affiliation{MOBLUEHQ, Inc., Long Grove, Illinois, USA}
+\date{\ifdraftmode Draft v9 of 25 November 2026. DRAFT, not for distribution.\else 25 November 2026\fi}
+
+\begin{abstract}
+Retrieval and agent documentation often illustrates file ingestion with short default loader calls. We built small files whose every word is known (random tokens in PDF, DOCX, PPTX, HTML and plain text), passed them through selected default calls in six frameworks at pinned versions and through common library calls, and counted the known words that came back, recording exceptions and spot-checking logs and status fields. In all \lcHtmlRuns\ HTML fixture runs, LangChain's \texttt{BSHTMLLoader} default merged words across adjacent block boundaries, leaving \lcHtmlLossPct\% of the expected tokens absent as standalone tokens; no exception was raised. The fixtures omit white space between blocks; on 58 public web pages, \glueRealPct\% of the tokens returned with a space separator were absent under the default. Each of the six frameworks also returned without an exception while lacking known words on at least one tested path (Table~I). Haystack's text and PDF converters skipped unreadable files, logged it, and returned an empty list. Alternative settings recovered the tokens in several classes. Rates are for constructed files and pinned versions; on real documents we measured only disagreement between tools. Maintainers of LangChain, LlamaIndex, Docling, Haystack, Unstructured and MarkItDown were notified on 25 November 2026, with the measurements and exact calls; the test-file bundle accompanies this note.
+\end{abstract}
+
+\maketitle
+
+\section{Question, scope and related work}
+A loader that returns only part of a document, or skips a file without raising an exception, can leave a caller that relies on exceptions unaware that downstream answers rest on incomplete input. This note asks a narrow question: for named loader calls used with default arguments, which constructed inputs lose known content with no exception? The calls are selected examples, the shortest default calls we know for each loader; we did not survey deployed code and make no claim about how often they are used.
+
+It is a measurement on test files, not a benchmark of extraction quality. Bast and Korzen scored missing words per tool for fourteen PDF extractors on 12,098 arXiv articles \cite{bast2017}; ParseBench (its Sec.~3.3) uses normalised word recall and precision \cite{parsebench}, so our metric is not new. Zhao, Pandey and Misra (their Appendix S4.3) describe headers, footers and other parts a DOCX body walk cannot reach \cite{zhao2026}; our DOCX rows repeat that for named calls. Liu \emph{et al.}\ study divergence between what Office shows and what extraction returns \cite{liu2026}. Li measures Office-content divergence using default extraction interfaces for several of the same tools \cite{li2026}. We extend coverage to PDF, HTML and plain text and record exceptions and selected caller-visible signals for specific calls: a per-default record, across five formats and six named frameworks at pinned versions, of what is returned and what the caller is told, with the settings that avoid most of it.
+
+\section{Method}
+\emph{Files.} A generator writes one file per class per seed (classes in Table~S1). Every word is a random string of 8 to 11 ASCII lower-case letters and digits, unique within the seed, so the truth for each file is a known multiset of tokens. The one exception is the three 8-bit text classes: in T3 (Latin-1), T4 (cp1252) and T5 (UTF-8 file in which those words' bytes are Latin-1) every fourth word has one interior character replaced by a non-ASCII one, \emph{\'e} in T3 and T5 and the right single quotation mark in T4. T1 (UTF-8) and T2 (UTF-16 with byte-order mark) hold ASCII words only. PDFs are made with reportlab, DOCX and PPTX with python-docx and python-pptx, HTML by hand.
+
+\emph{Score.} We lower-case the loader output, split it into runs of ASCII letters and digits plus the two non-ASCII characters above (so those words are one token each), and report \emph{token recall}: the share of truth tokens present, counted with multiplicity. Two words joined into one, one word broken in two, or a word whose non-ASCII character was dropped or replaced count as missing. A run has \emph{core loss} if recall is below 1 on \emph{core content}, the expected tokens designated for each fixture class. The definition is the same for every framework, and by fixture it is: P1, P3: the page text (P3 has four blank pages that hold no words); P4/P4c: the text on every page; P6: the invisible text layer (the words are also drawn as an image, so the image is not a second source); P11: the words of the intact file before it was cut, so P11 scores damaged-input handling against the intact original, not text a loader failed to read from a valid file; D1--D4: body paragraphs, table cells (nested ones included), headers and footers; S1--S4: text boxes, table cells, grouped shapes and speaker notes; T1--T5: the file's words; for HTML it is the static, visible text of all six classes, and the navigation, aside and footer text of H3, the script-written words of H4 and the CSS-hidden block of H6 are scored separately and are not called a defect here. Image-only pages and form field values (P7, P9) have no core content and are also scored separately. The scored output field is the returned text only: LangChain \texttt{page\_content}, LlamaIndex \texttt{Document.text}, Docling \texttt{export\_to\_text()}, Haystack \texttt{Document.content}, Unstructured the text of all returned elements joined, MarkItDown \texttt{text\_content}; metadata is not scored. The HTML title in the fixtures is the single character \texttt{t}; it is not in any denominator, and what we count is its being joined to the first body word. Full token recall does not establish order, structure or the absence of extra text. A \emph{run} is one loader call on one file; for the constructed-file run counts, denominators include all attempted calls, including calls that raised. Pooled token recall is calculated over calls that returned.
+
+\emph{Silent.} For the framework runs, silent means that the call returned without raising an exception; printed or logged messages were not scored. The Docling \texttt{ConversionResult.status} and \texttt{.errors} were not inspected in the main run; we inspected them afterwards (Sec.~III). For the library calls, silent means no exception and no new message on standard error.
+
+\emph{Runs.} Framework defaults: 20 seeds for LangChain, LlamaIndex, Haystack, Unstructured and MarkItDown, and the first 5 of those seeds for Docling, for running time (seed range in Sec.~S8). The Haystack, Unstructured and MarkItDown rows were registered (a prediction for each loader and class, committed before the run) in a separate environment: \preregCells\ cells, of which \preregMiss\ were wrong (Sec.~S3). Haystack has no PPTX row (Sec.~S1). Library calls: two independent sets of 20 seeds, a main run and a hold-out run. Outcomes within a class rarely vary. Class P4 (rotated pages) first had a defective file, withdrawn and rerun corrected (P4c; Sec.~S5). Versions are pinned in Table~S6. The calls are the shortest ones we know: \texttt{BSHTMLLoader(path).load()}, \texttt{PyPDFLoader(path).load()}, \texttt{Docx2txtLoader(path).load()}, \texttt{SimpleDirectoryReader(\allowbreak input\_files=[path])\allowbreak.load\_data()}, \texttt{DocumentConverter()\allowbreak.convert(path)\allowbreak.document\allowbreak.export\_to\_text()}, Haystack's converter for the format (\texttt{PyPDFToDocument}, \texttt{DOCXToDocument}, \texttt{HTMLToDocument}, \texttt{TextFileToDocument}), \texttt{unstructured.\allowbreak partition.\allowbreak auto.\allowbreak partition(\allowbreak filename=path)} with no strategy argument (so \texttt{auto}; Tesseract and \texttt{unstructured\_inference} were installed; OCR detail in Sec.~S8), and \texttt{MarkItDown().convert(path)}.
+
+\section{Results on constructed files}
+
+\begin{table*}[t]
+\caption{Framework defaults on constructed files: rows with core loss or rejection only. Denominators are attempted runs; ``Lost, no exception'' counts runs with token recall below 1 on core content among all runs, and ``Raised'' counts runs that threw. Recall is pooled over the runs that returned. Clean cells are in Table~S2, the corrected rotated-page file in Table~S5 and truncated PDFs (P11, damaged-input handling) in Table~S4; image-only and form PDFs (P7, P9) have no core tokens and are scored separately (Sec.~II). Docling was run on 5 seeds, the others on 20.\label{tab:fw}}
+\begin{ruledtabular}
+\begin{tabular}{llccc}
+Default loader & File class & Lost, no exception & Raised & Recall \\
+\colrule
+\input{table_fw.tex}
+\end{tabular}
+\end{ruledtabular}
+\raggedright\footnotesize $^{a}$ With no \texttt{file\_extractor} registered (the default), the reader returns the raw markup of an \texttt{.html} file, so character entities are not decoded. $^{b}$ Haystack skips the file, writes a warning to the log and returns an empty \texttt{documents} list (zero documents, checked); the call does not raise.
+\end{table*}
+
+\subsection{Framework defaults}
+\emph{LangChain.} \texttt{BSHTMLLoader} calls BeautifulSoup's \texttt{get\_text} with a separator that defaults to the empty string. Text in adjacent block elements is then concatenated: \texttt{...g1h4603dsk</p><p>lb3cew357...} came back as \texttt{g1h4603dsklb3cew357}, and the page title was joined to the first word of the body. This happened in \lcHtmlSilent\ of \lcHtmlRuns\ runs, on all six HTML classes including the plain-paragraph control, with no exception and (in a one-file check) nothing printed. Pooled token recall was \lcHtmlRecall\ (\lcHtmlFound\ of \lcHtmlTotal\ tokens). At merged boundaries, the adjoining words were returned as one string and did not count as standalone tokens (keyword search, exact matching, table cells). Passing a single space as the separator (not the default empty string) through LangChain was not itself run. In both standalone BeautifulSoup runs, \texttt{get\_text(" ")} achieved 1.00 core-token recall in every HTML fixture class; LangChain exposes the same separator through \texttt{get\_text\_separator=" "}. The other five frameworks' HTML readers had no core loss (0 of 120 runs each, 0 of 30 for Docling), except LlamaIndex, which returns raw markup and so lost tokens on the character-entity class only (H5; Table~I, note $a$).
+
+Two cautions. The fixtures omit white space between adjacent block tags, as minified pages do; whitespace between adjacent text nodes prevents this particular merge at that boundary. On public pages the measured difference is smaller: of 60 public web pages we compared 58 (two had too little text), at least one token of the separator output was absent from the default output in 52 of them, the default output held fewer than 90\% of the separator output's tokens in 4, and \glueRealPct\% of those tokens were absent overall (1046 of 31585; median page token overlap 0.97). That comparison was not pre-registered, and a separator can split a word styled part-way through, so it measures disagreement between two settings, not verified loss.
+
+\emph{LlamaIndex.} \texttt{SimpleDirectoryReader} returned text without raising for files that are not UTF-8: nothing usable came back from the UTF-16 files, and only the words without a non-ASCII character (75\%) came back from the 8-bit files. It also returns HTML as raw markup; DOCX and PPTX were read in full.
+
+\emph{Docling.} On 5 seeds the default text export did not contain DOCX headers and footers or PPTX speaker notes, and it returned part of the known words for pages with an invisible text layer over an image, all with status \texttt{SUCCESS} and no errors (checked afterwards). \texttt{export\_to\_markdown()} gave the same recall on D3 and S4 (Sec.~S9). Docling may leave headers, footers and notes out of the default export on purpose; we report what the call returned, not a defect.
+
+\emph{Haystack.} Its DOCX converter returned no headers or footers and, for a table nested in a cell of another table, the four cells of the outer table and none of the six cells of the nested one, in every seed, and printed nothing; the pinned converter builds each cell's text from that cell's own paragraphs only. With default settings, \texttt{TextFileToDocument} logged ``Could not convert file \ldots\ Skipping it'' and returned an empty \texttt{documents} list for all 80 files in T2--T5. Skipping and logging a bad input is a reasonable design for batch indexing, where one corrupt file should not stop a job. The converter logs a warning and returns zero documents without raising.
+
+\emph{Unstructured and MarkItDown.} \texttt{partition} omitted PPTX speaker notes, and MarkItDown lost DOCX headers and footers. On the corrected rotated-page file (P4c; the first, defective file is described in Sec.~S5) both lost words on rotated pages with no exception: \texttt{partition} in 20 of 20 files and MarkItDown in 15 of 20 (Table~S5). On one corrected page rotated by 90 degrees, standalone pdfminer recall was 0.00 with default settings and 1.00 with \texttt{detect\_vertical=True} (Sec.~S5). Unstructured's active strategy was unrecorded. On Latin-1, cp1252 and mixed text files both lost about a quarter of the tokens in the same 7 of 60 files (pooled recall 0.97 over the 60), cells we had registered as clean. None of the three joined HTML blocks. Several losses coincide with the engine underneath, so a framework row is a library plus a wrapper.
+
+\emph{Truncated PDFs} (P11; Table~S4) score damaged-input handling against the intact original. LangChain, Unstructured and MarkItDown raised on all 20 files; LlamaIndex and Haystack returned zero documents without raising; Docling returned \texttt{PARTIAL\_SUCCESS}, so a caller that checks the status is told.
+
+\subsection{Library calls underneath (Table~S4)}
+\emph{Shallow walks of Office files.} Reading only \texttt{doc.paragraphs} with python-docx misses every table cell, nested table, header and footer; reading only text-frame shapes with python-pptx misses table cells, grouped shapes and speaker notes. These are properties of the short call, not library faults: a walk that also visits tables, sections, groups and notes read every class in full, as did docx2txt and MarkItDown's PPTX converter. \emph{mammoth.} \texttt{extract\_raw\_text} returned the body and tables in full and no header or footer text, in 20 of 20 files in each run, the same mechanism as in \cite{zhao2026}.
+
+\emph{PyMuPDF, truncated files.} Cutting a PDF at 50 to 70\% of its bytes made pypdf and pypdfium2 raise on every file. PyMuPDF repaired the file and returned the right number of pages, the later ones empty (\pZeroPages\ of \pPages\ pages with no words across the \pFiles\ main-run files; recall \muTruncMain). All \pFiles\ main-run files returned incomplete text without raising or writing a new message to standard error. All \pRepaired\ set \texttt{Document.is\_repaired} and left messages in MuPDF's internal warning buffer. The short call does not look.
+
+\section{Alternative extraction settings and explicit rejection}
+We froze the following before running it on the 20 framework seeds. None of it is new; each item is one argument or one check:
+\emph{HTML:} the tested alternative was standalone BeautifulSoup \mbox{\texttt{get\_text(" ")}}. LangChain exposes the same separator setting, which was not tested through the wrapper. \emph{DOCX:} visit tables (nested ones too) and each section's header and footer, not only \texttt{doc.paragraphs}. \emph{PPTX:} recurse into group shapes, read table cells and the notes slide. \emph{Text:} decode strictly (no \texttt{errors="ignore"} or \texttt{"replace"}), honour a byte-order mark or declared encoding, and raise on invalid bytes. \emph{PDF:} use PyMuPDF and raise when \texttt{is\_repaired} is true or the warning buffer is non-empty, or use pypdfium2 after checking the end-of-file marker and \texttt{pikepdf.Pdf.check\_pdf\_syntax()}. \emph{Unreadable content:} image-only pages, form field values and script-rendered HTML have no text layer for these tools (they need OCR, a form reader or a browser); an empty string from them is not a blank page.
+In Table~S7, the tested alternatives recovered all core tokens on every returned run with core content. The PDF runs with complete recall were from P1, P3 and P6. P11 was rejected, P7 and P9 were scored separately, and P4c was not tested with these alternatives. Under its encoding-selection rule, the tested text decoder rejected the 60 Latin-1, cp1252 and mixed-encoding fixtures. The PDF checks rejected the 20 truncated files; image-only and form PDFs and H4 script-written words returned nothing (Sec.~S10).
+
+\emph{Real documents.} On public files no truth is known, and we measured only disagreement between tools: against a pypdfium2 reference, LangChain's and LlamaIndex's PDF readers each returned fewer than 90\% of the reference tokens in 16 of 103 PDFs. This is divergence, not loss, and unchecked by hand (Sec.~S6). No DOCX or PPTX real files were tested.
+
+\section{Limitations}
+\emph{Constructed files.} The results show that tested defaults can miss expected tokens on the constructed inputs; they do not say how often real corpora contain that structure. Tokens are random ASCII strings (apart from the 8-bit classes), in one font, from one generator per format, on one machine. There is no study of effects on question answering and no human labelling of real documents.
+
+\emph{Versions and scope.} Package versions were pinned within each environment (Table~S6), default arguments only, six frameworks. Haystack, Unstructured and MarkItDown ran in a separate environment, scored per document, not per page. Coverage is in Sec.~S1. Whether a behaviour is a bug, a documented default or a design choice is for the maintainers to say.
+
+\emph{A general check, scoped to PDF.} In the tested PDF setup, both readers missed the same visible content on the constructed pages. Their agreement therefore did not establish complete extraction (Sec.~S7).
+
+\section{Disclosure, provenance and author statement}
+\emph{Disclosure.} The maintainers of LangChain, LlamaIndex, Docling, Haystack, Unstructured and MarkItDown were notified on 25 November 2026, with the measurements and exact calls; the test-file bundle accompanies this note. We used blueMonster, a tool developed by MOBLUEHQ, Inc., to generate research topics and brainstorm ideas. The harness, the pre-registered plans, the analysis and this draft were written with Claude large language models (Anthropic) under the author's direction. Two further large language models (ChatGPT, OpenAI; Gemini, Google) criticised earlier drafts of this note and shaped the withdrawal of the general check, the split between caller settings and engine behaviour, and the plain-settings baseline; these were AI-assisted critiques, not peer review, and no human referee has read this draft. A script writes every number from the committed result files. The author takes responsibility for the content.
+
+The author is an amateur. He has no formal training in statistics, econometrics or machine-learning evaluation and has published no research in them. Much of this work was done while improving MOBLUEHQ's software tools, by using them on a real problem, and in order to learn how such research is done. His inexperience should invite heavy scepticism towards the methods and the claims: errors of a kind a trained researcher would not make are possible, and the checks described here lower that risk without removing it. He welcomes corrections.
+
+\emph{Competing interests.} The author is the founder of MOBLUEHQ, Inc., which develops and intends to sell blueMonster.
+
+\section*{Data and code availability}
+The generator, the loader calls, the harness, pinned requirements, the stored results and the script that writes every number here accompany this preprint as a public code-and-fixtures bundle (repository address to be added at release); the public real-document files are pinned by checksum and not redistributed.
+
+\begin{thebibliography}{9}\footnotesize
+\bibitem{bast2017} H.~Bast and C.~Korzen, A benchmark and evaluation for text extraction from PDF, \emph{JCDL} (2017).
+\bibitem{parsebench} B.~Zhang \emph{et al.}, ParseBench, arXiv:2604.08538 (2026).
+\bibitem{zhao2026} Y.~Zhao, S.~Pandey and P.~K.~Misra, What the author wrote, what the agent reads, arXiv:2610.30026 (2026).
+\bibitem{liu2026} S.~Liu \emph{et al.}, Beyond the editing canvas, arXiv:2608.25880 (2026).
+\bibitem{li2026} P.~Li, When file ingestion misleads language models, arXiv:2611.05806 (2026).
+\end{thebibliography}
+
+\clearpage
+\input{supplement.tex}
+
+\end{document}

@@ -1,0 +1,2 @@
+pdfminer LAParams(detect_vertical=False), page 2 of seed 20261401 (/Rotate 90): word recall 0.00
+pdfminer LAParams(detect_vertical=True), page 2 of seed 20261401 (/Rotate 90): word recall 1.00

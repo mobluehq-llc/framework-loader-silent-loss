@@ -1,0 +1,15 @@
+LangChain \texttt{BSHTMLLoader} & HTML, all six classes (H1--H6) & 120/120 & 0 & 0.78 \\
+LlamaIndex \texttt{SimpleDirectoryReader} & TXT, UTF-16 with BOM (T2) & 20/20 & 0 & 0.00 \\
+ & TXT, Latin-1, cp1252, mixed (T3--T5) & 60/60 & 0 & 0.75 \\
+ & HTML, character entities (H5)$^{a}$ & 20/20 & 0 & 0.80 \\
+Docling \texttt{DocumentConverter} & DOCX, headers and footers (D3) & 5/5 & 0 & 0.83 \\
+ & PPTX, speaker notes (S4) & 5/5 & 0 & 0.57 \\
+ & PDF, hidden text over image (P6) & 5/5 & 0 & 0.87 \\
+Haystack \texttt{DOCXToDocument} & DOCX, headers and footers (D3) & 20/20 & 0 & 0.82 \\
+ & DOCX, table nested in a cell (D4) & 20/20 & 0 & 0.87 \\
+Haystack \texttt{TextFileToDocument} & TXT, four non-UTF-8 classes (T2--T5)$^{b}$ & 80/80 & 0 & 0.00 \\
+Unstructured \texttt{partition} & PPTX, speaker notes (S4) & 20/20 & 0 & 0.57 \\
+ & TXT, Latin-1, cp1252, mixed (T3--T5) & 7/60 & 0 & 0.97 \\
+MarkItDown \texttt{convert} & DOCX, headers and footers (D3) & 20/20 & 0 & 0.82 \\
+ & TXT, Latin-1, cp1252, mixed (T3--T5) & 7/60 & 0 & 0.97 \\
+Unstructured, MarkItDown & PDF, rotated pages, corrected file (P4c) & 20/20, 15/20 & 0 & 0.39, 0.61 \\

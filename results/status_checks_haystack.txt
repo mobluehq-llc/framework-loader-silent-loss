@@ -1,0 +1,9 @@
+Could not read ./fixtures3_fw/20261401/P11_truncated.pdf and convert it to Document, skipping. Stream has ended unexpectedly
+haystack-ai 3.5.0 PPTXToDocument present: True
+T02_utf16_bom.txt keys ['documents'] documents: 0
+T03_latin1.txt keys ['documents'] documents: 0
+T04_cp1252.txt keys ['documents'] documents: 0
+T05_mixed_encoding.txt keys ['documents'] documents: 0
+P11_truncated.pdf keys ['documents'] documents: 0
+T01_utf8.txt keys ['documents'] documents: 1
+D04 documents 1

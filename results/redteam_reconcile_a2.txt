@@ -1,0 +1,48 @@
+== MAIN2 3060
+M1 non-returns: 240
+M2 non-returns: 520
+M3 non-returns: 920
+R non-returns: 1316
+M2 non-return reasons:
+   ('pdf', 'P11', 'file truncated') 40
+   ('pdf', 'P11', 'loader raised') 160
+   ('txt', 'T02', 'loader raised') 20
+   ('txt', 'T03', 'encoding not established (not BOM utf-16') 80
+   ('txt', 'T03', 'loader raised') 20
+   ('txt', 'T04', 'encoding not established (not BOM utf-16') 80
+   ('txt', 'T04', 'loader raised') 20
+   ('txt', 'T05', 'encoding not established (not BOM utf-16') 80
+   ('txt', 'T05', 'loader raised') 20
+M2 non-return not due to loader raise: 280  loader raised: 240
+A1 lossy runs (M1 silent drops>0): 1241 units 4345
+   lossy run: ('R:accept-declared', 'M2:silent') 260
+   lossy run: ('R:refuse', 'M2:refuse') 185
+   lossy run: ('R:refuse', 'M2:silent') 796
+units M1 4345 M2 4016 ratio 0.924 ; runs with M2 silent drops 1056 all also lossy under M1: True
+  runs where M2 units > M1 units: 0
+  M2 survivors by class: {'D02': 20, 'D03': 40, 'D04': 20, 'H01': 40, 'H02': 40, 'H03': 80, 'H04': 100, 'H05': 60, 'H06': 60, 'P04': 136, 'P07': 200, 'P09': 140, 'S02': 20, 'S03': 20, 'S04': 20, 'T02': 60}
+  P11 non-raising runs 40 R refused: 40 M2 refused: 40
+== HOLDOUT2 3060
+M1 non-returns: 242
+M2 non-returns: 520
+M3 non-returns: 920
+R non-returns: 1314
+M2 non-return reasons:
+   ('pdf', 'P11', 'file truncated') 38
+   ('pdf', 'P11', 'loader raised') 162
+   ('txt', 'T02', 'loader raised') 20
+   ('txt', 'T03', 'encoding not established (not BOM utf-16') 80
+   ('txt', 'T03', 'loader raised') 20
+   ('txt', 'T04', 'encoding not established (not BOM utf-16') 80
+   ('txt', 'T04', 'loader raised') 20
+   ('txt', 'T05', 'encoding not established (not BOM utf-16') 80
+   ('txt', 'T05', 'loader raised') 20
+M2 non-return not due to loader raise: 278  loader raised: 242
+A1 lossy runs (M1 silent drops>0): 1238 units 4490
+   lossy run: ('R:accept-declared', 'M2:silent') 260
+   lossy run: ('R:refuse', 'M2:refuse') 184
+   lossy run: ('R:refuse', 'M2:silent') 794
+units M1 4490 M2 4182 ratio 0.931 ; runs with M2 silent drops 1054 all also lossy under M1: True
+  runs where M2 units > M1 units: 0
+  M2 survivors by class: {'D02': 20, 'D03': 40, 'D04': 20, 'H01': 40, 'H02': 40, 'H03': 80, 'H04': 100, 'H05': 60, 'H06': 60, 'P04': 134, 'P07': 200, 'P09': 140, 'S02': 20, 'S03': 20, 'S04': 20, 'T02': 60}
+  P11 non-raising runs 38 R refused: 38 M2 refused: 38

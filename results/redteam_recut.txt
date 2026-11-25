@@ -1,0 +1,104 @@
+========== MAIN2 bare runs 3060
+runs with both core and unread silent loss: 40
+
+[A caller-idiom footgun] runs 560 (18.3% of 3060) Wilson [17.0,19.7]; loader-class pairs 28; loaders 7; families 5
+  by class: {'D02': 20, 'D03': 20, 'D04': 20, 'H01': 40, 'H02': 40, 'H03': 40, 'H04': 40, 'H05': 40, 'H06': 40, 'S02': 20, 'S03': 20, 'S04': 20, 'T02': 60, 'T03': 40, 'T04': 60, 'T05': 40}
+  by loader: {'bs4_text': 120, 'docx_paragraphs': 60, 'lxml_text': 120, 'pptx_shapes': 60, 'txt_latin1': 40, 'txt_utf8_ignore': 80, 'txt_utf8_replace': 80}
+  families: ['bs4', 'lxml', 'python-docx', 'python-pptx', 'stdlib']
+
+[B library/engine behaviour] runs 221 (7.2% of 3060) Wilson [6.4,8.2]; loader-class pairs 14; loaders 10; families 8
+  by class: {'D03': 20, 'H05': 20, 'P04': 136, 'P11': 40, 'T03': 1, 'T04': 2, 'T05': 2}
+  by loader: {'html2text': 20, 'mammoth': 20, 'markitdown_pdf': 18, 'pdfminer_high': 20, 'pdfminer_pages': 20, 'pdfplumber': 18, 'pdftotext': 20, 'pymupdf': 40, 'pymupdf4llm': 40, 'txt_charset_normalizer': 5}
+  families: ['charset-normalizer', 'html2text', 'mammoth', 'markitdown', 'pdfminer', 'pdfplumber', 'poppler', 'pymupdf']
+
+[C modality gap (no text layer / script-rendered)] runs 440 (14.4% of 3060) Wilson [13.2,15.7]; loader-class pairs 22; loaders 15; families 11
+  by class: {'H04': 100, 'P07': 200, 'P09': 140}
+  by loader: {'bs4_sep': 20, 'bs4_text': 20, 'html2text': 20, 'lxml_text': 20, 'markitdown_pdf': 40, 'pdfminer_high': 40, 'pdfminer_pages': 40, 'pdfplumber': 40, 'pdftotext': 20, 'pymupdf': 20, 'pymupdf4llm': 20, 'pypdf': 40, 'pypdf2': 40, 'pypdfium2': 40, 'trafilatura': 20}
+  families: ['bs4', 'html2text', 'lxml', 'markitdown', 'pdfium', 'pdfminer', 'pdfplumber', 'poppler', 'pymupdf', 'pypdf', 'trafilatura']
+
+Group B sub-mechanisms (runs): {'mammoth headers/footers': 20, 'html2text accent stripping': 20, 'P04 rotation': 136, 'P11 truncation': 40, 'charset misguess': 5}
+silent core loss total 781  minus caller group = 221 ; families remaining in B: ['charset-normalizer', 'html2text', 'mammoth', 'markitdown', 'pdfminer', 'pdfplumber', 'poppler', 'pymupdf'] 8
+
+RECALL WHEN THE LOADER RETURNED SILENTLY (core kinds; loud = raised or novel stderr) vs LOUD RATE, per loader (cluster bootstrap over replicate seeds, 95%)
+fmt    loader                      runs     recall-when-silent     loud%    raise%
+pdf    markitdown_pdf               140  0.873 [0.846,0.900]     14.3%     14.3%
+pdf    pdfminer_high                140  0.847 [0.811,0.878]     14.3%     14.3%
+pdf    pdfminer_pages               140  0.847 [0.812,0.878]     14.3%     14.3%
+pdf    pdfplumber                   140  0.873 [0.846,0.903]     14.3%     14.3%
+pdf    pdftotext                    140  0.879 [0.853,0.903]     14.3%     14.3%
+pdf    pymupdf                      140  0.796 [0.773,0.819]      0.0%      0.0%
+pdf    pymupdf4llm                  140  0.702 [0.666,0.734]      0.0%      0.0%
+pdf    pypdf                        140  1.000 [1.000,1.000]     14.3%     14.3%
+pdf    pypdf2                       140  1.000 [1.000,1.000]     14.3%     14.3%
+pdf    pypdfium2                    140  1.000 [1.000,1.000]     14.3%     14.3%
+docx   docx2txt                      80  1.000 [1.000,1.000]      0.0%      0.0%
+docx   docx_full                     80  1.000 [1.000,1.000]      0.0%      0.0%
+docx   docx_paragraphs               80  0.888 [0.875,0.899]      0.0%      0.0%
+docx   mammoth                       80  0.954 [0.949,0.958]      0.0%      0.0%
+pptx   markitdown_pptx               80  1.000 [1.000,1.000]      0.0%      0.0%
+pptx   pptx_shapes                   80  0.810 [0.794,0.824]      0.0%      0.0%
+pptx   pptx_walk                     80  1.000 [1.000,1.000]      0.0%      0.0%
+html   bs4_sep                      120  1.000 [1.000,1.000]      0.0%      0.0%
+html   bs4_text                     120  0.784 [0.782,0.786]      0.0%      0.0%
+html   html2text                    120  0.961 [0.958,0.964]      0.0%      0.0%
+html   lxml_text                    120  0.783 [0.781,0.784]      0.0%      0.0%
+html   trafilatura                  120  1.000 [1.000,1.000]      0.0%      0.0%
+txt    txt_charset_normalizer       100  0.987 [0.975,0.996]      0.0%      0.0%
+txt    txt_latin1                   100  0.758 [0.735,0.778]      0.0%      0.0%
+txt    txt_utf8_ignore              100  0.651 [0.629,0.670]      0.0%      0.0%
+txt    txt_utf8_replace             100  0.651 [0.629,0.670]      0.0%      0.0%
+txt    txt_utf8_strict              100  1.000 [1.000,1.000]     80.0%     80.0%
+
+pooled recall when silent, all loaders: 0.875 over 2820 silent runs; loud runs 240 (7.8%)
+========== HOLDOUT2 bare runs 3060
+runs with both core and unread silent loss: 40
+
+[A caller-idiom footgun] runs 560 (18.3% of 3060) Wilson [17.0,19.7]; loader-class pairs 28; loaders 7; families 5
+  by class: {'D02': 20, 'D03': 20, 'D04': 20, 'H01': 40, 'H02': 40, 'H03': 40, 'H04': 40, 'H05': 40, 'H06': 40, 'S02': 20, 'S03': 20, 'S04': 20, 'T02': 60, 'T03': 40, 'T04': 60, 'T05': 40}
+  by loader: {'bs4_text': 120, 'docx_paragraphs': 60, 'lxml_text': 120, 'pptx_shapes': 60, 'txt_latin1': 40, 'txt_utf8_ignore': 80, 'txt_utf8_replace': 80}
+  families: ['bs4', 'lxml', 'python-docx', 'python-pptx', 'stdlib']
+
+[B library/engine behaviour] runs 218 (7.1% of 3060) Wilson [6.3,8.1]; loader-class pairs 14; loaders 10; families 8
+  by class: {'D03': 20, 'H05': 20, 'P04': 134, 'P11': 38, 'T03': 2, 'T04': 1, 'T05': 3}
+  by loader: {'html2text': 20, 'mammoth': 20, 'markitdown_pdf': 17, 'pdfminer_high': 20, 'pdfminer_pages': 20, 'pdfplumber': 17, 'pdftotext': 20, 'pymupdf': 39, 'pymupdf4llm': 39, 'txt_charset_normalizer': 6}
+  families: ['charset-normalizer', 'html2text', 'mammoth', 'markitdown', 'pdfminer', 'pdfplumber', 'poppler', 'pymupdf']
+
+[C modality gap (no text layer / script-rendered)] runs 440 (14.4% of 3060) Wilson [13.2,15.7]; loader-class pairs 22; loaders 15; families 11
+  by class: {'H04': 100, 'P07': 200, 'P09': 140}
+  by loader: {'bs4_sep': 20, 'bs4_text': 20, 'html2text': 20, 'lxml_text': 20, 'markitdown_pdf': 40, 'pdfminer_high': 40, 'pdfminer_pages': 40, 'pdfplumber': 40, 'pdftotext': 20, 'pymupdf': 20, 'pymupdf4llm': 20, 'pypdf': 40, 'pypdf2': 40, 'pypdfium2': 40, 'trafilatura': 20}
+  families: ['bs4', 'html2text', 'lxml', 'markitdown', 'pdfium', 'pdfminer', 'pdfplumber', 'poppler', 'pymupdf', 'pypdf', 'trafilatura']
+
+Group B sub-mechanisms (runs): {'mammoth headers/footers': 20, 'html2text accent stripping': 20, 'P04 rotation': 134, 'P11 truncation': 38, 'charset misguess': 6}
+silent core loss total 778  minus caller group = 218 ; families remaining in B: ['charset-normalizer', 'html2text', 'mammoth', 'markitdown', 'pdfminer', 'pdfplumber', 'poppler', 'pymupdf'] 8
+
+RECALL WHEN THE LOADER RETURNED SILENTLY (core kinds; loud = raised or novel stderr) vs LOUD RATE, per loader (cluster bootstrap over replicate seeds, 95%)
+fmt    loader                      runs     recall-when-silent     loud%    raise%
+pdf    markitdown_pdf               140  0.885 [0.862,0.909]     14.3%     14.3%
+pdf    pdfminer_high                140  0.846 [0.822,0.865]     14.3%     14.3%
+pdf    pdfminer_pages               140  0.846 [0.822,0.865]     14.3%     14.3%
+pdf    pdfplumber                   140  0.885 [0.862,0.910]     14.3%     14.3%
+pdf    pdftotext                    140  0.879 [0.860,0.893]     14.3%     14.3%
+pdf    pymupdf                      140  0.802 [0.785,0.818]      0.7%      0.7%
+pdf    pymupdf4llm                  140  0.732 [0.706,0.758]      0.7%      0.7%
+pdf    pypdf                        140  1.000 [1.000,1.000]     14.3%     14.3%
+pdf    pypdf2                       140  1.000 [1.000,1.000]     14.3%     14.3%
+pdf    pypdfium2                    140  1.000 [1.000,1.000]     14.3%     14.3%
+docx   docx2txt                      80  1.000 [1.000,1.000]      0.0%      0.0%
+docx   docx_full                     80  1.000 [1.000,1.000]      0.0%      0.0%
+docx   docx_paragraphs               80  0.889 [0.876,0.899]      0.0%      0.0%
+docx   mammoth                       80  0.955 [0.951,0.959]      0.0%      0.0%
+pptx   markitdown_pptx               80  1.000 [1.000,1.000]      0.0%      0.0%
+pptx   pptx_shapes                   80  0.797 [0.778,0.814]      0.0%      0.0%
+pptx   pptx_walk                     80  1.000 [1.000,1.000]      0.0%      0.0%
+html   bs4_sep                      120  1.000 [1.000,1.000]      0.0%      0.0%
+html   bs4_text                     120  0.783 [0.780,0.785]      0.0%      0.0%
+html   html2text                    120  0.954 [0.950,0.959]      0.0%      0.0%
+html   lxml_text                    120  0.782 [0.779,0.783]      0.0%      0.0%
+html   trafilatura                  120  1.000 [1.000,1.000]      0.0%      0.0%
+txt    txt_charset_normalizer       100  0.984 [0.971,0.995]      0.0%      0.0%
+txt    txt_latin1                   100  0.759 [0.744,0.778]      0.0%      0.0%
+txt    txt_utf8_ignore              100  0.662 [0.648,0.676]      0.0%      0.0%
+txt    txt_utf8_replace             100  0.662 [0.649,0.678]      0.0%      0.0%
+txt    txt_utf8_strict              100  1.000 [1.000,1.000]     80.0%     80.0%
+
+pooled recall when silent, all loaders: 0.879 over 2818 silent runs; loud runs 242 (7.9%)

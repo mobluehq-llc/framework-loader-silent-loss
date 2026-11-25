@@ -1,0 +1,7 @@
+P04 corrected  lc_pdf       runs 20  raised 0  lost-no-exception  0/20  pooled recall 1.00 (18829 of 18829)
+P04 corrected  li_pdf       runs 20  raised 0  lost-no-exception  0/20  pooled recall 1.00 (18829 of 18829)
+P04 corrected  docling_pdf  runs  5  raised 0  lost-no-exception  0/5  pooled recall 1.00 (4356 of 4356)
+P04 corrected  hs_pdf       runs 20  raised 0  lost-no-exception  0/20  pooled recall 1.00 (18829 of 18829)
+P04 corrected  un_pdf       runs 20  raised 0  lost-no-exception 20/20  pooled recall 0.39 (7382 of 18829)
+P04 corrected  mk_pdf       runs 20  raised 0  lost-no-exception 15/20  pooled recall 0.61 (11559 of 18829)
+P04 corrected  pymupdf      runs 20  raised 0  lost-no-exception  0/20  pooled recall 1.00 (18829 of 18829)

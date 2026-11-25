@@ -1,0 +1,137 @@
+seeds 20 cells 3080 not measured []
+CHECK (c) reference vs truth: equal 440, not equal 0, undecodable-by-design 80 []
+CHECK (a) positive control: replicates with some perfect loader, by format: {'pdf': 20, 'docx': 20, 'pptx': 20, 'html': 20, 'txt': 20} of 20
+CHECK (b) negative control: stub flagged silent_core on 20 of 20
+
+Q1: silent CORE loss, count/K [95% Wilson]; U=silent expected-unreadable loss (image/form/dynamic), S=silent selective loss (boilerplate/css-hidden); loud = L
+  D02_tables             docx_paragraphs  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  D03_header_footer      docx_paragraphs  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  D03_header_footer      mammoth          core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  D04_nested_table       docx_paragraphs  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H01_body               bs4_text         core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H01_body               lxml_text        core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H02_table_list         bs4_text         core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H02_table_list         lxml_text        core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H03_boilerplate        bs4_text         core 20/20 [0.84,1.00]  U  0  S 20  loud  0
+  H03_boilerplate        html2text        core  0/20 [0.00,0.16]  U  0  S 20  loud  0
+  H03_boilerplate        lxml_text        core 20/20 [0.84,1.00]  U  0  S 20  loud  0
+  H03_boilerplate        trafilatura      core  0/20 [0.00,0.16]  U  0  S 20  loud  0
+  H04_js_rendered        bs4_sep          core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  H04_js_rendered        bs4_text         core 20/20 [0.84,1.00]  U 20  S  0  loud  0
+  H04_js_rendered        html2text        core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  H04_js_rendered        lxml_text        core 20/20 [0.84,1.00]  U 20  S  0  loud  0
+  H04_js_rendered        trafilatura      core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  H05_entities           bs4_text         core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H05_entities           html2text        core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H05_entities           lxml_text        core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  H06_css_hidden         bs4_text         core 20/20 [0.84,1.00]  U  0  S 20  loud  0
+  H06_css_hidden         lxml_text        core 20/20 [0.84,1.00]  U  0  S 20  loud  0
+  H06_css_hidden         trafilatura      core  0/20 [0.00,0.16]  U  0  S 20  loud  0
+  P04_rotated            markitdown_pdf   core 17/20 [0.64,0.95]  U  0  S  0  loud  0
+  P04_rotated            pdfminer_high    core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  P04_rotated            pdfminer_pages   core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  P04_rotated            pdfplumber       core 17/20 [0.64,0.95]  U  0  S  0  loud  0
+  P04_rotated            pdftotext        core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  P04_rotated            pymupdf          core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  P04_rotated            pymupdf4llm      core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  P07_image_only         markitdown_pdf   core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pdfminer_high    core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pdfminer_pages   core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pdfplumber       core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pdftotext        core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pymupdf          core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pymupdf4llm      core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pypdf            core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pypdf2           core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P07_image_only         pypdfium2        core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          markitdown_pdf   core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          pdfminer_high    core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          pdfminer_pages   core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          pdfplumber       core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          pypdf            core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          pypdf2           core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P09_form_only          pypdfium2        core  0/20 [0.00,0.16]  U 20  S  0  loud  0
+  P11_truncated          markitdown_pdf   core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pdfminer_high    core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pdfminer_pages   core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pdfplumber       core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pdftotext        core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pymupdf          core 19/20 [0.76,0.99]  U  0  S  0  loud  1
+  P11_truncated          pymupdf4llm      core 19/20 [0.76,0.99]  U  0  S  0  loud  1
+  P11_truncated          pypdf            core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pypdf2           core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  P11_truncated          pypdfium2        core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  S02_table              pptx_shapes      core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  S03_grouped_shapes     pptx_shapes      core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  S04_notes              pptx_shapes      core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T02_utf16_bom          txt_latin1       core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T02_utf16_bom          txt_utf8_ignore  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T02_utf16_bom          txt_utf8_replace core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T02_utf16_bom          txt_utf8_strict  core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  T03_latin1             txt_charset_normalizer core  2/20 [0.03,0.30]  U  0  S  0  loud  0
+  T03_latin1             txt_utf8_ignore  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T03_latin1             txt_utf8_replace core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T03_latin1             txt_utf8_strict  core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  T04_cp1252             txt_charset_normalizer core  1/20 [0.01,0.24]  U  0  S  0  loud  0
+  T04_cp1252             txt_latin1       core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T04_cp1252             txt_utf8_ignore  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T04_cp1252             txt_utf8_replace core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T04_cp1252             txt_utf8_strict  core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+  T05_mixed_encoding     txt_charset_normalizer core  3/20 [0.05,0.36]  U  0  S  0  loud  0
+  T05_mixed_encoding     txt_utf8_ignore  core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T05_mixed_encoding     txt_utf8_replace core 20/20 [0.84,1.00]  U  0  S  0  loud  0
+  T05_mixed_encoding     txt_utf8_strict  core  0/20 [0.00,0.16]  U  0  S  0  loud 20
+
+families with silent CORE loss (class, loader, k/n, Wilson lower bound>0):
+   bs4 [('H01_body', 'bs4_text', '20/20'), ('H02_table_list', 'bs4_text', '20/20'), ('H03_boilerplate', 'bs4_text', '20/20'), ('H04_js_rendered', 'bs4_text', '20/20'), ('H05_entities', 'bs4_text', '20/20'), ('H06_css_hidden', 'bs4_text', '20/20')]
+   charset-normalizer [('T03_latin1', 'txt_charset_normalizer', '2/20'), ('T04_cp1252', 'txt_charset_normalizer', '1/20'), ('T05_mixed_encoding', 'txt_charset_normalizer', '3/20')]
+   html2text [('H05_entities', 'html2text', '20/20')]
+   lxml [('H01_body', 'lxml_text', '20/20'), ('H02_table_list', 'lxml_text', '20/20'), ('H03_boilerplate', 'lxml_text', '20/20'), ('H04_js_rendered', 'lxml_text', '20/20'), ('H05_entities', 'lxml_text', '20/20'), ('H06_css_hidden', 'lxml_text', '20/20')]
+   mammoth [('D03_header_footer', 'mammoth', '20/20')]
+   markitdown [('P04_rotated', 'markitdown_pdf', '17/20')]
+   pdfminer [('P04_rotated', 'pdfminer_high', '20/20'), ('P04_rotated', 'pdfminer_pages', '20/20')]
+   pdfplumber [('P04_rotated', 'pdfplumber', '17/20')]
+   poppler [('P04_rotated', 'pdftotext', '20/20')]
+   pymupdf [('P04_rotated', 'pymupdf', '20/20'), ('P04_rotated', 'pymupdf4llm', '20/20'), ('P11_truncated', 'pymupdf', '19/20'), ('P11_truncated', 'pymupdf4llm', '19/20')]
+   python-docx [('D02_tables', 'docx_paragraphs', '20/20'), ('D03_header_footer', 'docx_paragraphs', '20/20'), ('D04_nested_table', 'docx_paragraphs', '20/20')]
+   python-pptx [('S02_table', 'pptx_shapes', '20/20'), ('S03_grouped_shapes', 'pptx_shapes', '20/20'), ('S04_notes', 'pptx_shapes', '20/20')]
+   stdlib [('T02_utf16_bom', 'txt_latin1', '20/20'), ('T02_utf16_bom', 'txt_utf8_ignore', '20/20'), ('T02_utf16_bom', 'txt_utf8_replace', '20/20'), ('T03_latin1', 'txt_utf8_ignore', '20/20'), ('T03_latin1', 'txt_utf8_replace', '20/20'), ('T04_cp1252', 'txt_latin1', '20/20'), ('T04_cp1252', 'txt_utf8_ignore', '20/20'), ('T04_cp1252', 'txt_utf8_replace', '20/20'), ('T05_mixed_encoding', 'txt_utf8_ignore', '20/20'), ('T05_mixed_encoding', 'txt_utf8_replace', '20/20')]
+n families with silent core loss: 13
+
+POOLED CORE word recall per loader (cluster bootstrap over replicates, 95%):
+  pdf   markitdown_pdf     0.686 [0.659,0.717]
+  pdf   pdfminer_high      0.656 [0.632,0.679]
+  pdf   pdfminer_pages     0.656 [0.633,0.678]
+  pdf   pdfplumber         0.686 [0.658,0.716]
+  pdf   pdftotext          0.681 [0.659,0.703]
+  pdf   pymupdf            0.790 [0.763,0.811]
+  pdf   pymupdf4llm        0.721 [0.686,0.753]
+  pdf   pypdf              0.775 [0.750,0.799]
+  pdf   pypdf2             0.775 [0.751,0.800]
+  pdf   pypdfium2          0.775 [0.750,0.799]
+  docx  docx2txt           1.000 [1.000,1.000]
+  docx  docx_full          1.000 [1.000,1.000]
+  docx  docx_paragraphs    0.889 [0.877,0.900]
+  docx  mammoth            0.955 [0.951,0.959]
+  pptx  markitdown_pptx    1.000 [1.000,1.000]
+  pptx  pptx_shapes        0.797 [0.780,0.814]
+  pptx  pptx_walk          1.000 [1.000,1.000]
+  html  bs4_sep            1.000 [1.000,1.000]
+  html  bs4_text           0.783 [0.780,0.785]
+  html  html2text          0.954 [0.950,0.959]
+  html  lxml_text          0.782 [0.779,0.784]
+  html  trafilatura        1.000 [1.000,1.000]
+  txt   txt_charset_normalizer 0.984 [0.971,0.994]
+  txt   txt_latin1         0.759 [0.742,0.776]
+  txt   txt_utf8_ignore    0.662 [0.648,0.677]
+  txt   txt_utf8_replace   0.662 [0.648,0.678]
+  txt   txt_utf8_strict    0.213 [0.192,0.234]
+
+REMEDY bars
+R silent_drop_units 0 | cells 0 | wrapper refusals 1314 | false alarms (all/controls) 94 0 | accountant faults 0 [] | silent drops by class {}
+M1 silent_drop_units 4490 | cells 1238 | wrapper refusals 242 | false alarms (all/controls) 0 0 | accountant faults 0 [] | silent drops by class {'D02_tables': 20, 'D03_header_footer': 40, 'D04_nested_table': 20, 'H01_body': 40, 'H02_table_list': 40, 'H03_boilerplate': 80, 'H04_js_rendered': 100, 'H05_entities': 60, 'H06_css_hidden': 60, 'P04_rotated': 134, 'P07_image_only': 200, 'P09_form_only': 140, 'P11_truncated': 38, 'S02_table': 20, 'S03_grouped_shapes': 20, 'S04_notes': 20, 'T02_utf16_bom': 60, 'T03_latin1': 42, 'T04_cp1252': 61, 'T05_mixed_encoding': 43}
+M2 silent_drop_units 4182 | cells 1054 | wrapper refusals 520 | false alarms (all/controls) 94 0 | accountant faults 0 [] | silent drops by class {'D02_tables': 20, 'D03_header_footer': 40, 'D04_nested_table': 20, 'H01_body': 40, 'H02_table_list': 40, 'H03_boilerplate': 80, 'H04_js_rendered': 100, 'H05_entities': 60, 'H06_css_hidden': 60, 'P04_rotated': 134, 'P07_image_only': 200, 'P09_form_only': 140, 'S02_table': 20, 'S03_grouped_shapes': 20, 'S04_notes': 20, 'T02_utf16_bom': 60}
+M3 silent_drop_units 758 | cells 354 | wrapper refusals 920 | false alarms (all/controls) 94 0 | accountant faults 0 [] | silent drops by class {'H01_body': 40, 'H02_table_list': 40, 'H03_boilerplate': 60, 'H05_entities': 40, 'H06_css_hidden': 40, 'P04_rotated': 74, 'T02_utf16_bom': 60}
+
+Bare loader totals: silent_core 778, loud-with-loss 242, no loss 1580 (cells 3060)
+page_count_error/misnumbered nonzero cells: 160

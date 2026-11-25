@@ -1,0 +1,7 @@
+PyMuPDF 2.1 20 seeds, P04
+pages with /Rotate 0, MediaBox (0.0, 0.0, 612.0, 792.0), CropBox==MediaBox True: 34
+pages with /Rotate 90, MediaBox (0.0, 0.0, 792.0, 612.0), CropBox==MediaBox True: 71
+pages with /Rotate 180, MediaBox (0.0, 0.0, 612.0, 792.0), CropBox==MediaBox True: 30
+pages with /Rotate 270, MediaBox (0.0, 0.0, 792.0, 612.0), CropBox==MediaBox True: 35
+words returned only with the clip off: 8753, of which entirely outside the page rectangle: 8753
+known words 18829; returned by default get_text 10076 (0.54); returned with the box clip off 18829 (1.00)

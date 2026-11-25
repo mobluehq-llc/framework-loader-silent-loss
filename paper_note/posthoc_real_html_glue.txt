@@ -1,0 +1,3 @@
+reference = stored bs4 get_text(' ') tokens of the same file; files with >= 50 reference tokens
+LangChain BSHTMLLoader default     files 58 | recall<1: 52 | <0.99: 42 | <0.95: 13 | <0.90: 4 | median 0.9714 | min 0.6137 | pooled missing tokens 1046 of 31585
+bs4 get_text() (no separator)      files 58 | recall<1: 52 | <0.99: 42 | <0.95: 13 | <0.90: 4 | median 0.9714 | min 0.6137 | pooled missing tokens 1046 of 31585

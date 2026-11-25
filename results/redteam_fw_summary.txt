@@ -1,0 +1,42 @@
+records 965 seeds 20
+framework      class                    n raised  loss  (core loss without exception / seeds)
+docling_docx   D03_header_footer        5      0     5 unread-loss 0  exc=
+docling_html   H04_js_rendered          5      0     0 unread-loss 5  exc=
+docling_pdf    P04_rotated              5      0     5 unread-loss 0  exc=
+docling_pdf    P06_hidden_layer         5      0     5 unread-loss 0  exc=
+docling_pdf    P07_image_only           5      0     0 unread-loss 5  exc=
+docling_pdf    P09_form_only            5      0     0 unread-loss 5  exc=
+docling_pdf    P11_truncated            5      0     5 unread-loss 0  exc=
+docling_pptx   S04_notes                5      0     5 unread-loss 0  exc=
+lc_html        H01_body                20      0    20 unread-loss 0  exc=
+lc_html        H02_table_list          20      0    20 unread-loss 0  exc=
+lc_html        H03_boilerplate         20      0    20 unread-loss 0  exc=
+lc_html        H04_js_rendered         20      0    20 unread-loss 20  exc=
+lc_html        H05_entities            20      0    20 unread-loss 0  exc=
+lc_html        H06_css_hidden          20      0    20 unread-loss 0  exc=
+lc_pdf         P07_image_only          20      0     0 unread-loss 20  exc=
+lc_pdf         P09_form_only           20      0     0 unread-loss 20  exc=
+lc_pdf         P11_truncated           20     20     0 unread-loss 0  exc={'PdfStreamError: Stream has ended unexpectedly'}
+li_html        H04_js_rendered         20      0     0 unread-loss 20  exc=
+li_html        H05_entities            20      0    20 unread-loss 0  exc=
+li_pdf         P07_image_only          20      0     0 unread-loss 20  exc=
+li_pdf         P09_form_only           20      0     0 unread-loss 20  exc=
+li_pdf         P11_truncated           20      0    20 unread-loss 0  exc=
+li_txt         T02_utf16_bom           20      0    20 unread-loss 0  exc=
+li_txt         T03_latin1              20      0    20 unread-loss 0  exc=
+li_txt         T04_cp1252              20      0    20 unread-loss 0  exc=
+li_txt         T05_mixed_encoding      20      0    20 unread-loss 0  exc=
+
+per framework totals: runs, raised, silent core loss, classes with silent core loss
+  docling_docx   runs  20 raised   0 silent_core   5 classes ['D03']
+  docling_html   runs  30 raised   0 silent_core   0 classes []
+  docling_pdf    runs  35 raised   0 silent_core  15 classes ['P04', 'P06', 'P11']
+  docling_pptx   runs  20 raised   0 silent_core   5 classes ['S04']
+  lc_docx        runs  80 raised   0 silent_core   0 classes []
+  lc_html        runs 120 raised   0 silent_core 120 classes ['H01', 'H02', 'H03', 'H04', 'H05', 'H06']
+  lc_pdf         runs 140 raised  20 silent_core   0 classes []
+  li_docx        runs  80 raised   0 silent_core   0 classes []
+  li_html        runs 120 raised   0 silent_core  20 classes ['H05']
+  li_pdf         runs 140 raised   0 silent_core  20 classes ['P11']
+  li_pptx        runs  80 raised   0 silent_core   0 classes []
+  li_txt         runs 100 raised   0 silent_core  80 classes ['T02', 'T03', 'T04', 'T05']

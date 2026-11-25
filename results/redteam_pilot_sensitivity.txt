@@ -1,0 +1,11 @@
+PDF files with >=50 tokens from pypdfium2: 103  (skipped small/empty: 6 )
+idiom               n tokens of pypdfium2 missing: recall<0.90              recall<0.50
+markitdown_pdf    103         49/103 [0.38,0.57]           13/103 [0.08,0.20]
+pdfminer_high     103          5/103 [0.02,0.11]            0/103 [0.00,0.04]
+pdfminer_pages    103         10/103 [0.05,0.17]            1/103 [0.00,0.05]
+pdfplumber        103         49/103 [0.38,0.57]           13/103 [0.08,0.20]
+pdftotext         103          2/103 [0.01,0.07]            0/103 [0.00,0.04]
+pymupdf           103          3/103 [0.01,0.08]            0/103 [0.00,0.04]
+pymupdf4llm       102          9/102 [0.05,0.16]            2/102 [0.01,0.07]
+pypdf             103          6/103 [0.03,0.12]            1/103 [0.00,0.05]
+pypdf2            103         30/103 [0.21,0.39]            3/103 [0.01,0.08]

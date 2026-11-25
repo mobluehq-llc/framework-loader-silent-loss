@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Default document loaders in AI frameworks can omit expected text without raising an exception: reproducibility bundle"
+type: software
+version: "1.0"
+date-released: "2026-11-25"
+authors:
+  - family-names: Faust
+    given-names: Adam
+    affiliation: "MOBLUEHQ, Inc."
+license: MIT
+repository-code: "https://github.com/mobluehq-llc/framework-loader-silent-loss"
+abstract: "Constructed files with known words, the harness, pinned requirements, stored results and a script that regenerates every number and table of the note (Faust 2026) on default loader calls in LangChain, LlamaIndex, Docling, Haystack, Unstructured and MarkItDown."

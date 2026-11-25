@@ -1,0 +1,136 @@
+\onecolumngrid\raggedbottom
+\setcounter{table}{0}\renewcommand{\thetable}{S\arabic{table}}
+\section*{Supplement}
+Everything below is generated from the same stored results as the main text (\texttt{make\_numbers.py}).
+
+\subsection*{S1. File classes and coverage}
+\begin{table}[H]
+\caption{Constructed file classes (seeds make 20 files per class). PDF classes P2, P5, P8, P10, P12 and P13 exist in the generator and were not used for any number in this note.\label{tab:classes}}
+\begin{ruledtabular}
+\begin{tabular}{lp{0.8\textwidth}}
+P1, P3, P4 & PDF: plain text pages (control); text pages with four blank pages among them; pages with rotation entries of 90, 180 or 270 degrees (the first file was defective and is withdrawn; P4c is the corrected file, Sec.~S5) \\
+P6, P7, P9, P11 & PDF: image of the words with the same words as invisible text; image of the words only; form field values only; file cut at 50--70\% of its bytes \\
+D1--D4 & DOCX: body paragraphs (control); tables; per-section headers and footers; table nested in a cell of a table \\
+S1--S4 & PPTX: text boxes (control); table; grouped shapes; speaker notes \\
+H1--H3 & HTML: paragraphs (control); table and list; navigation, aside and footer around an article \\
+H4--H6 & HTML: text written by a script (the static text is core, the script-written words are scored separately); character entities; a block hidden by CSS \\
+T1--T5 & Text: UTF-8 (control); UTF-16 with byte-order mark; Latin-1; cp1252; mixed UTF-8 and Latin-1 \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+Coverage of the framework defaults (T = tested on all classes of the format listed above; U = not tested; the call is named in Sec.~II): LangChain: PDF T, DOCX T, HTML T, PPTX U, text U. LlamaIndex: all five T. Docling: PDF, DOCX, PPTX, HTML T; text U. Haystack: PDF, DOCX, HTML, text T; PPTX U (\texttt{PPTXToDocument} exists in 3.5.0; \texttt{MarkdownToDocument} also U). Unstructured and MarkItDown: all five T, default strategy only. Not tested: explicit strategy or OCR settings of Unstructured; the plain-settings PDF pipelines on the corrected rotated-page file.
+
+\subsection*{S2. Tested cells without core loss and without rejection}
+Table~S2 lists them.
+\begin{table}[H]
+\caption{Loader and classes that returned with token recall 1 on core content in every run (the controls are among them). The columns are as in Table~I.\label{tab:clean}}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{llccc}
+Default loader & File class & Lost & Raised & Recall \\
+\colrule
+\input{table_fw_clean.tex}
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\subsection*{S3. Registered predictions against results: all \preregMiss\ misses}
+The predictions (Haystack, Unstructured, MarkItDown; cell = loader $\times$ class) were committed with the plan before the run, from one throwaway development seed (20261400) and the framework documentation. There were \preregCells\ cells. They are the classes of Table~S1 that each loader was run on: the seven PDF classes P1, P3, P4, P6, P7, P9 and P11, the four DOCX classes, the six HTML classes and the five text classes for all three loaders (22 classes, \preregCellsHS\ cells for Haystack, which had no PPTX run), plus the four PPTX classes for Unstructured and MarkItDown (\preregCellsUN\ cells each), that is $22+26+26$. The cells for the original P4 (rotated pages) were registered for the defective file: Haystack no loss, Unstructured and MarkItDown silent loss. The count of \preregHit\ matches includes those three, which were scored on the original file; re-scoring the same three cells on the corrected file P4c (Table~S5) gives the same outcome (no loss for Haystack in 20 of 20 files; loss in 20 of 20 for Unstructured and 15 of 20 for MarkItDown, no exception), so the original tally of \preregHit/\preregCells\ is unchanged by P4c. The separate prediction made before the rerun (Amendment 5: no loss for any loader) is not part of that tally; it failed for Unstructured and MarkItDown. Of the six unreadable-content cells (P7 and P9 for each of the three loaders), five matched and one is a miss (Unstructured, P9). Of the \preregCells\ cells, \preregHit\ matched: \preregAHit\ registered silent core losses, \preregRaisedHit\ registered rejections, \preregBHit\ registered clean cells, and \preregUnreadHit\ registered unreadable cells (image-only and form PDFs). The seven that did not:
+\begin{table}[H]
+\caption{The seven wrong registered predictions (20 seeds each).\label{tab:prereg}}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+Loader & Class & Registered & Observed \\
+\colrule
+\input{table_prereg.tex}
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+The text-file decoding of Unstructured and MarkItDown is not exact on short 8-bit files: in the same seven files for both loaders, \eightBitLostLo\ to \eightBitLostHi\% of the tokens were lost, about the share of words that hold a non-ASCII character; we did not examine the cause.
+
+\subsection*{S4. Library calls}
+\begin{table}[H]
+\caption{Common library calls on constructed files: runs (of 20) that returned with core loss and with no exception and no new message on standard error, and pooled token recall; each as main run, hold-out run. The PyMuPDF truncated row is the case that has a flag: \texttt{Document.is\_repaired} was true for \pRepaired\ of \pFiles\ main-run files.\label{tab:lib}}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{llcc}
+Call & Class & No exception or new stderr message & Recall \\
+\colrule
+\input{table_lib.tex}
+\end{tabular}
+\end{ruledtabular}
+\raggedright\footnotesize $^{a}$ Repair flag set in \pRepaired\ of \pFiles\ main-run files; in the hold-out run one file raised.
+
+\medskip\centering\emph{Framework defaults on truncated PDFs (P11): damaged-input handling, recall against the intact original; columns as in Table~I.}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{llccc}
+Default loader & File class & Lost, no exception & Raised & Recall \\
+\colrule
+\input{table_fw_p11.tex}
+\end{tabular}
+\end{ruledtabular}
+\raggedright\footnotesize $^{b}$ Haystack skips the file, writes a warning to the log and returns an empty \texttt{documents} list (zero documents, checked); the call does not raise. $^{c}$ No exception and an empty document list; in a one-file check the reader printed ``Failed to load file \ldots\ Skipping'' to standard output. $^{d}$ Checked afterwards (5 of 5 files): the result status was \texttt{PARTIAL\_SUCCESS} with 3 to 6 entries in \texttt{errors}, so a caller that inspects the status is told.
+\end{table}
+
+\subsection*{S5. Rotated pages: the clip check and the corrected rerun (Amendment 5)}
+\emph{The defect.} Over the 20 framework seeds, PyMuPDF \texttt{get\_text()} returned \pFourDefault\ of the \pFourWords\ known words of the first P4 file by default and \pFourNoClip\ with \texttt{clip=pymupdf.INFINITE\_RECT()}; all \pFourExtra\ words returned only without the clip lay entirely outside the page rectangle, and CropBox equalled MediaBox on all \pFourPages\ pages. Pages with a rotation entry of 90 or 270 (\pFourNinety\ pages) had MediaBox $792\times612$ with text drawn up to 740 points above the lower edge. No extraction result from that file appears in the results tables (the diagnostic counts above are the only numbers taken from it); the three registered P4 cells in Sec.~S3 were scored on it first and are retained in that tally (script \texttt{stage3/p4\_clip\_check.py}).
+
+\emph{The rerun.} \texttt{stage2/gen2\_p4fix.py} differs from the generator in one constant (text starts 560 points up on rotated pages); same seeds gave the same words (checked against the stored manifests). The plan and the prediction (no loss for any loader) were committed before the run; the prediction failed for Unstructured (loss in 20 of 20 files) and MarkItDown (15 of 20) and held for the other loaders and PyMuPDF. Default calls as in Sec.~II, 20 seeds (Docling 5), \texttt{stage3/p4fix\_run.py}.
+\begin{table}[H]
+\caption{Rotated pages, corrected file (P4c). Columns as in Table~I. PyMuPDF with its default \texttt{get\_text()}.\label{tab:pfour}}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{llccc}
+Default loader & File class & Lost & Raised & Recall \\
+\colrule
+\input{table_fw_p4.tex}
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+For Unstructured and MarkItDown the text is inside the page (PyMuPDF with its page clip read all of it). As a standalone diagnostic (the wrapper's strategy was not recorded): on one page with a rotation entry of 90, \texttt{pdfminer.six} with its default \texttt{LAParams} returned word recall 0.00 and with \texttt{detect\_vertical=True} 1.00 (\texttt{stage3/p4fix\_pdfminer\_check.py}); Package metadata lists \texttt{pdfminer.six} as a dependency of both packages. The one-page check was run directly with \texttt{pdfminer.six}, and the Unstructured strategy used on P4c was not recorded.
+
+\emph{MarkItDown results by rotation sequence.} The generator draws one rotation sequence per seed from four (all pages 90; 270 and 0; 180 and 90; 90, 180, 270 and 0 in turn). Regenerating the 20 files from the stored generator and seeds (the manifest for seed 20261401 is identical to the stored one, and the 20 files hold 18,829 known words, the denominator of the pooled recall in Table~S5) shows that the five MarkItDown files that returned every word (seeds 20261402, 20261403, 20261404, 20261409 and 20261419) are exactly the five files in which every page is rotated by 90 degrees; Unstructured returned no word from those five. The other 15 files contain pages rotated by 180 or 270 degrees, and MarkItDown lost words in all of them. MarkItDown recovered all tokens from the five all-90 files, while Unstructured recovered none. The stored results do not localize MarkItDown's omissions within the mixed-rotation files, so we make no claim about 180 or 270 degree pages for MarkItDown; the one-page pdfminer check does not explain its pattern and we did not isolate the cause.
+
+
+\subsection*{S6. Real documents}
+Public files: 59 arXiv PDFs (January 2026, six categories), 50 PDFs, 20 HTML and 20 text files from a GovDocs1 subset, and 40 Wikipedia pages, with source, date and checksum recorded. A file enters a comparison only if its reference has at least 50 tokens. For PDFs the reference is pypdfium2: 103 of the 109 PDFs qualified (the other 6 gave fewer than 50 tokens, mostly scans). LangChain's \texttt{PyPDFLoader} and LlamaIndex's reader each returned fewer than 90\% of the reference tokens in 16 of 103 files (Wilson 95\%: 0.10 to 0.24) and fewer than 50\% in 1. Docling's PDF run was stopped for running time after the first 30 PDFs; 18 of 30 had under 90\% of the reference tokens. Docling produces a different text model (reading order, hyphenation, tables), so this is divergence between tools and we do not call it loss. For web pages the reference is the separator call; 58 of 60 pages qualified (one page returned no text from any reader, one had 27 tokens). The 20 GovDocs1 text files were read with LlamaIndex's reader only, against the fullest of the registered text idioms (strict decoding with byte-order mark): all 20 qualified, and none of the 20 files fell below 90\% overlap with the reference (0 of 20; Wilson 95\% upper bound 0.16).
+
+\subsection*{S7. A general check that we tried and withdraw}
+A run-time check that compares a loader's tokens with those of a second, independent reader and withholds the output on disagreement was tested for PDF. On the 109 real PDFs it withheld or flagged all 109, mostly because the second reader failed on real fonts (76 files). It also accepted the incomplete page in 540 of 540 constructed runs where a page mixed readable text with text drawn as an image or as outlines, because both readers missed the same visible content. In the tested PDF setup their agreement therefore did not establish complete extraction. We keep only the measurement.
+
+\subsection*{S8. Versions and run details}
+\begin{table}[H]
+\caption{Versions, read from the installed packages. Python 3.12.13, macOS, CPU only. The framework environment and the library environment are separate; pypdf differs between them.\label{tab:versions}}
+\begin{ruledtabular}
+\begin{tabular}{lp{0.82\textwidth}}
+Frameworks & langchain-community 0.4.2, langchain-core 1.8.4; llama-index-core 0.14.26, llama-index-readers-file 0.8.0; docling 2.152.0, docling-core 2.108.0, docling-parse 7.27.1; with pypdf 6.21.4, beautifulsoup4 4.15.0, docx2txt 0.9; haystack-ai 3.5.0, unstructured 0.27.38, markitdown 0.1.9 (own environment: trafilatura 2.4.0, pdfminer.six 20260107, python-docx 1.2.0, python-pptx 1.0.2, lxml 6.1.3) \\
+Libraries & PyMuPDF 2.1 (MuPDF 1.28.6), pypdf 7.1.1, pypdfium2 5.15.2, pikepdf 10.18.2, python-docx 1.2.0, python-pptx 1.0.2, mammoth 1.13.0, docx2txt 0.9, markitdown 0.1.9, beautifulsoup4 4.15.0, lxml 6.1.3 \\
+Generator & reportlab 5.1.0, python-docx 1.2.0, python-pptx 1.0.2 \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+Framework seeds were 20261401 to 20261420. Unstructured with \texttt{auto} ran OCR on the image-only pages, where it returned 545 of 8,905 known words (6\%) from the 20 files; the strategy chosen on text-layer files was not recorded.
+
+\subsection*{S9. Docling afterwards: Markdown export and result status}
+Post hoc, not registered (\texttt{stage3/docling\_md\_check.py}, \texttt{stage3/status\_checks.py}), seeds 20261401 to 20261405. Pooled core recall of \texttt{export\_to\_markdown()} equalled that of \texttt{export\_to\_text()} on D3 (0.83, 537 of 647) and S4 (0.57, 768 of 1350). \texttt{ConversionResult.status} was \texttt{SUCCESS} with no errors for every class except P11, where it was \texttt{PARTIAL\_SUCCESS} with 3 to 6 errors in 5 of 5 files. Haystack: the skipped inputs (T2 to T5 and P11) returned an empty \texttt{documents} list (zero documents; \texttt{TextFileToDocument} on the UTF-8 control returned one).
+
+\subsection*{S10. Alternative settings: counts by call}
+Runs attempted on the constructed files, as complete / incomplete / rejected / no text layer (image-only and form PDFs have no core tokens). PDF counts are over the classes P1, P3, P6, P7, P9 and P11 (P4 withdrawn; P4c was not run with these calls).
+\begin{table}[H]
+\caption{Alternative settings, counts by the call used. ``Rejected'' are runs that raised.\label{tab:alt}}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{lccccc}
+Call & Complete & Incomplete & Rejected & No text layer & Runs \\
+\colrule
+BeautifulSoup \texttt{get\_text(" ")}, HTML & \pHtmlComplete & \pHtmlIncomplete & \pHtmlRejected & \pHtmlNocore & \pHtmlRuns \\
+python-docx walk with tables, sections, headers and footers, DOCX & \pDocxComplete & \pDocxIncomplete & \pDocxRejected & \pDocxNocore & \pDocxRuns \\
+python-pptx walk with groups, tables and notes, PPTX & \pPptxComplete & \pPptxIncomplete & \pPptxRejected & \pPptxNocore & \pPptxRuns \\
+strict decoding with byte-order mark, text (rejections are T3--T5) & \pTxtComplete & \pTxtIncomplete & \pTxtRejected & \pTxtNocore & \pTxtRuns \\
+pypdfium2 with end-of-file and \texttt{pikepdf} syntax checks, PDF & \pPdfBComplete & \pPdfBIncomplete & \pPdfBRejected & \pPdfBNocore & \pPdfBRuns \\
+PyMuPDF with the repair check, PDF & \pPdfAComplete & \pPdfAIncomplete & \pPdfARejected & \pPdfANocore & \pPdfARuns \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+For both PDF pipelines the 20 rejections are the truncated files, and the 40 runs with no text layer are the image-only and form classes; image-only pages came back empty in \cUnreadPdf\ of 20 files for both, and the words written by a script in H4 were not returned.

@@ -1,0 +1,13 @@
+P01_text_10p gen 10 raw leaf 10 raw /Count 10 OK
+P02_text_200p gen 200 raw leaf 200 raw /Count 200 OK
+P03_blank_interleaved_12p gen 12 raw leaf 12 raw /Count 12 OK
+P04_rotated_10p gen 10 raw leaf 10 raw /Count 10 OK
+P05_encrypted_owner_8p raw recount unavailable (encrypted or truncated)
+P06_hidden_layer_8p gen 8 raw leaf 8 raw /Count 8 OK
+P07_image_only_8p gen 8 raw leaf 8 raw /Count 8 OK
+P08_mixed_12p gen 12 raw leaf 12 raw /Count 12 OK
+P09_form_only_6p gen 6 raw leaf 6 raw /Count 6 OK
+P10_encrypted_user_6p raw recount unavailable (encrypted or truncated)
+P11_truncated_10p raw recount unavailable (encrypted or truncated)
+P12_single_blank_1p gen 1 raw leaf 1 raw /Count 1 OK
+P13_single_text_1p gen 1 raw leaf 1 raw /Count 1 OK

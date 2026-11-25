@@ -1,0 +1,22 @@
+cells 680 bare 660 unmeasured 0
+fmt      pipeline/class            runs | C: silent_core loud loss-any(loud) silent_unread | C+W: silent drops(units) refused-of-C-complete refused-of-C-lossy declared_unread
+html     bs4_sep/H04                     20 |  0  0  0 20 |  0  0  0 20
+pdf      comp_pdf_A/P04                  20 | 20  0  0  0 |  0  0 20  0
+pdf      comp_pdf_A/P07                  20 |  0  0  0 20 |  0  0  0 20
+pdf      comp_pdf_A/P11                  20 |  0 20 20  0 |  0  0  0  0
+pdf      comp_pdf_B/P07                  20 |  0  0  0 20 |  0  0  0 20
+pdf      comp_pdf_B/P09                  20 |  0  0  0 20 |  0  0 20  0
+pdf      comp_pdf_B/P11                  20 |  0 20 20  0 |  0  0  0  0
+txt      txt_strict_bom/T03              20 |  0 20 20  0 |  0  0  0  0
+txt      txt_strict_bom/T04              20 |  0 20 20  0 |  0  0  0  0
+txt      txt_strict_bom/T05              20 |  0 20 20  0 |  0  0  0  0
+
+TOTALS per pipeline (runs; silent core loss under C; W silent drops on top; W refusals of C-complete runs; W refusals of C-lossy (non-raised) runs)
+  bs4_sep          runs 120 silent_core   0 (seed-level wilson upper 0.16) silent_unread  20 | W drops 0 | W refuse complete 0 | W refuse lossy 0
+  comp_pdf_A       runs 140 silent_core  20 (seed-level wilson upper 1.00) silent_unread  20 | W drops 0 | W refuse complete 0 | W refuse lossy 20
+  comp_pdf_B       runs 140 silent_core   0 (seed-level wilson upper 0.16) silent_unread  40 | W drops 0 | W refuse complete 0 | W refuse lossy 20
+  docx_full        runs  80 silent_core   0 (seed-level wilson upper 0.16) silent_unread   0 | W drops 0 | W refuse complete 0 | W refuse lossy 0
+  pptx_walk        runs  80 silent_core   0 (seed-level wilson upper 0.16) silent_unread   0 | W drops 0 | W refuse complete 0 | W refuse lossy 0
+  txt_strict_bom   runs 100 silent_core   0 (seed-level wilson upper 0.16) silent_unread   0 | W drops 0 | W refuse complete 0 | W refuse lossy 0
+
+classes where competent pipeline still silently loses core text: [('comp_pdf_A', 'P04')]

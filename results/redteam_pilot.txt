@@ -1,0 +1,62 @@
+files with cells: 189  by source: {'arxiv': 59, 'govdocs1': 90, 'wiki': 40}  by format: {'pdf': 109, 'txt': 20, 'html': 60}
+
+files by format: {'pdf': 109, 'html': 60, 'txt': 20} | files where no usable text: {('html', 'no loader returned'): 1}
+
+=== M2 idiom divergence vs fullest idiom (returned without exception). D90: token recall of fullest < 0.90; D50 < 0.50. n = files with extractable text where the idiom did not raise; raise% separately
+fmt   idiom                       n  raise           D90 [95% Wilson]           D50 [95% Wilson]   stderr%  mean rec
+html  bs4_text[A]                59     0%          54/59 [0.82,0.96]          22/59 [0.26,0.50]        0%     0.570
+html  bs4_sep                    59     0%          52/59 [0.77,0.94]          19/59 [0.22,0.45]        0%     0.584
+html  lxml_text[A]               57     3%          33/57 [0.45,0.70]           4/57 [0.03,0.17]        0%     0.766
+html  trafilatura                59     0%          53/59 [0.80,0.95]          39/59 [0.53,0.77]      100%     0.454
+html  html2text                  59     0%          19/59 [0.22,0.45]          11/59 [0.11,0.30]        0%     0.828
+pdf   pypdf                     109     0%         57/109 [0.43,0.61]         13/109 [0.07,0.19]       15%     0.793
+pdf   pypdf2                    109     0%         68/109 [0.53,0.71]         14/109 [0.08,0.20]      100%     0.765
+pdf   pdfminer_pages            109     0%         62/109 [0.48,0.66]         11/109 [0.06,0.17]        0%     0.799
+pdf   pdfminer_high             109     0%         57/109 [0.43,0.61]         10/109 [0.05,0.16]        0%     0.808
+pdf   pdfplumber                109     0%         73/109 [0.58,0.75]         22/109 [0.14,0.29]        0%     0.713
+pdf   pymupdf                   109     0%         57/109 [0.43,0.61]         11/109 [0.06,0.17]      100%     0.803
+pdf   pypdfium2                 109     0%         57/109 [0.43,0.61]         12/109 [0.06,0.18]        0%     0.801
+pdf   pdftotext                 109     0%         57/109 [0.43,0.61]         12/109 [0.06,0.18]       10%     0.801
+pdf   pymupdf4llm               108     1%          9/108 [0.04,0.15]          3/108 [0.01,0.08]      100%     0.960
+pdf   markitdown_pdf            109     0%         73/109 [0.58,0.75]         22/109 [0.14,0.29]        0%     0.714
+txt   txt_utf8_strict            20     0%           0/20 [0.00,0.16]           0/20 [0.00,0.16]        0%     1.000
+txt   txt_utf8_ignore[A]         20     0%           0/20 [0.00,0.16]           0/20 [0.00,0.16]        0%     1.000
+txt   txt_utf8_replace[A]        20     0%           0/20 [0.00,0.16]           0/20 [0.00,0.16]        0%     1.000
+txt   txt_latin1[A]              20     0%           0/20 [0.00,0.16]           0/20 [0.00,0.16]        0%     1.000
+txt   txt_charset_normalizer     20     0%           0/20 [0.00,0.16]           0/20 [0.00,0.16]        0%     1.000
+
+=== M1 wrapper W verdicts on real files (all idioms; unit = file x idiom). Likely-false = refused/declared_unreadable while two engines agree (mutual recall>=0.95).
+fmt   idiom                       n |  accept decl_unr  refused   raised  fault | likely-false among refused+declared
+html  bs4_text                   59 |       7        0       52        0      0 | 4/52
+html  bs4_sep                    59 |      52        7        0        0      0 | 1/7
+html  lxml_text                  59 |      14        0       43        2      0 | 4/43
+html  trafilatura                59 |      22        0       37        0      0 | 7/37
+html  html2text                  59 |      50        3        6        0      0 | 3/9
+pdf   pypdf                     109 |       1        2      106        0      0 | 102/108
+pdf   pypdf2                    109 |       0        2      107        0      0 | 103/109
+pdf   pdfminer_pages            109 |       0        2      107        0      0 | 103/109
+pdf   pdfminer_high             109 |       0        2      107        0      0 | 103/109
+pdf   pdfplumber                109 |       0        2      107        0      0 | 103/109
+pdf   pymupdf                   109 |       0        2      107        0      0 | 103/109
+pdf   pypdfium2                 109 |       0        2      107        0      0 | 103/109
+pdf   pdftotext                 109 |       0        2      107        0      0 | 103/109
+pdf   pymupdf4llm               109 |       0        2      106        1      0 | 102/108
+pdf   markitdown_pdf            109 |       0        2      107        0      0 | 103/109
+txt   txt_utf8_strict            20 |      20        0        0        0      0 | 0/0
+txt   txt_utf8_ignore            20 |      20        0        0        0      0 | 0/0
+txt   txt_utf8_replace           20 |      20        0        0        0      0 | 0/0
+txt   txt_latin1                 20 |      20        0        0        0      0 | 0/0
+txt   txt_charset_normalizer     20 |      20        0        0        0      0 | 0/0
+
+W refusal reasons: {('pdf', 'page recall <1'): 682, ('pdf', 'doc-level recall < 1'): 76, ('pdf', 'structure problems'): 310, ('html', 'recall < 1'): 138}
+
+=== M1 headline per format, FULLEST idiom of each file: refusal+declared rate
+pdf files 109 {'refused': 107, 'declared_unreadable': 2} refused-or-declared 109/109 [0.97,1.00]  likely-false 103 / 109
+html files 59 {'accept': 38, 'refused': 19, 'declared_unreadable': 2} refused-or-declared 21/59 [0.25,0.48]  likely-false 3 / 21
+txt files 20 {'accept': 20} refused-or-declared 0/20 [0.00,0.16]  likely-false 0 / 0
+
+=== M3 dual-engine PDF (pypdfium2 vs pymupdf, per page mutual token recall < 0.9 flagged)
+files with both engines returning: 109 page-count mismatch: 0 | pages with text in either: 1898 flagged 95/1898 [0.04,0.06] | blank (both empty): 55 | files with >=1 flagged page 19/109 [0.11,0.26]
+flagged files (first 10): ['2601.00292v3.pdf', '2601.00377v1.pdf', '864227.pdf', '2601.00461v1.pdf', '2601.00156v1.pdf', '864297.pdf', '2601.00200v1.pdf', '2601.00356v1.pdf', '2601.00654v2.pdf', '2601.00910v1.pdf']
+
+loader raised counts: {('pdf', 'pymupdf4llm'): 1, ('html', 'lxml_text'): 3, ('html', 'trafilatura'): 1, ('html', 'bs4_text'): 1, ('html', 'bs4_sep'): 1, ('html', 'html2text'): 1}
